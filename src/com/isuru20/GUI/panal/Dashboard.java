@@ -1,14 +1,16 @@
 package com.isuru20.GUI.panal;
 
-public class Student extends javax.swing.JPanel {
+public class Dashboard extends javax.swing.JPanel {
 
-    public Student() {
+    public Dashboard() {
         initComponents();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setBackground(new java.awt.Color(51, 255, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
