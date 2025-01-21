@@ -109,9 +109,9 @@ public class Home extends javax.swing.JFrame {
 
     private void frameSetup() {
         this.setTitle("VT School System");
+        this.setSize(900, 600); // Initial size
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/com/isuru20/assets/top_icon.png")));
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
