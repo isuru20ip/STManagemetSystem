@@ -21,7 +21,7 @@ public class DB {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // set onnection 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/adyapana_db", "root", "@ISURU9829ip");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/vta", "root", "@ISURU9829ip");
         }
     }
 
