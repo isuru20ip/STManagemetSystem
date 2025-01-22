@@ -40,7 +40,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 12));
 
-        jButton2.setBackground(new java.awt.Color(102, 153, 255));
+        jButton2.setBackground(new java.awt.Color(255, 204, 102));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Dashboard");
