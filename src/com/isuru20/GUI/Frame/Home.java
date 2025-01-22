@@ -1,5 +1,6 @@
 package com.isuru20.GUI.Frame;
 
+import com.formdev.flatlaf.IntelliJTheme;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import com.isuru20.GUI.panal.Dashboard;
 import com.isuru20.GUI.panal.Student;
@@ -164,7 +165,8 @@ public class Home extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        FlatMacLightLaf.setup();
+        IntelliJTheme.setup(Home.class.getResourceAsStream(
+                "/com/isuru20/assets/theme.json"));
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -215,14 +217,14 @@ public class Home extends javax.swing.JFrame {
         current = new Dashboard();
         main.add(current, BorderLayout.CENTER);
     }
-    
-    private void buttonColorSetup(JButton btn){
+
+    private void buttonColorSetup(JButton btn) {
 
         student.setBackground(new Color(255, 204, 102));
         teacher.setBackground(new Color(255, 204, 102));
         payment.setBackground(new Color(255, 204, 102));
-        
-        btn.setBackground(new Color(255,102,0));
+
+        btn.setBackground(new Color(255, 102, 0));
     }
 
 }
