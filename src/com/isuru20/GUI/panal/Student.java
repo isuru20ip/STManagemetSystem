@@ -1,5 +1,6 @@
 package com.isuru20.GUI.panal;
 
+import com.isuru20.modal.DB;
 import com.isuru20.modal.ItemLoader;
 import com.isuru20.modal.LogWritter;
 import java.awt.Color;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
+import java.sql.ResultSet;
 
 public class Student extends javax.swing.JPanel {
 
@@ -52,17 +54,17 @@ public class Student extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         subject = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        badge = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        badgeStatus = new javax.swing.JTextField();
+        startDate = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        fee = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        duration = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        teacher = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         view = new javax.swing.JPanel();
@@ -283,16 +285,28 @@ public class Student extends javax.swing.JPanel {
         jLabel3.setText("Subject");
 
         subject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        subject.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                subjectItemStateChanged(evt);
+            }
+        });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        badge.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Badge" }));
+        badge.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                badgeItemStateChanged(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 153, 0));
         jLabel4.setText("Badge");
 
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        badgeStatus.setEditable(false);
+        badgeStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        startDate.setEditable(false);
+        startDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 153, 0));
@@ -302,19 +316,19 @@ public class Student extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(255, 153, 0));
         jLabel15.setText("Subeject fee");
 
-        jTextField9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fee.setEditable(false);
+        fee.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 153, 0));
         jLabel16.setText("Durations");
 
-        jTextField12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        duration.setEditable(false);
+        duration.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setText("Teachers");
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -322,14 +336,14 @@ public class Student extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField9)
+                    .addComponent(fee)
                     .addComponent(jLabel3)
                     .addComponent(subject, 0, 254, Short.MAX_VALUE)
                     .addComponent(jLabel15))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField12)
-                    .addComponent(jComboBox3, 0, 234, Short.MAX_VALUE)
+                    .addComponent(duration)
+                    .addComponent(badge, 0, 234, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
@@ -337,18 +351,18 @@ public class Student extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, 0, 261, Short.MAX_VALUE)
+                                .addComponent(teacher, javax.swing.GroupLayout.Alignment.LEADING, 0, 261, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel11))
                         .addGap(16, 16, 16))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jTextField4)
+                        .addComponent(badgeStatus)
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addContainerGap())
-                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(startDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,31 +376,31 @@ public class Student extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fee, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel11))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(badge, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(badgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(teacher, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -617,18 +631,30 @@ public class Student extends javax.swing.JPanel {
         SwingUtilities.updateComponentTreeUI(main);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void subjectItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_subjectItemStateChanged
+        findBadge();
+
+
+    }//GEN-LAST:event_subjectItemStateChanged
+
+    private void badgeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_badgeItemStateChanged
+        loadBadegInfo();
+    }//GEN-LAST:event_badgeItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
+    private javax.swing.JComboBox<String> badge;
+    private javax.swing.JTextField badgeStatus;
     private javax.swing.JPanel btnPanal;
     private javax.swing.JComboBox<String> city;
+    private javax.swing.JTextField duration;
+    private javax.swing.JTextField fee;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -659,20 +685,18 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel main;
+    private javax.swing.JTextField startDate;
     private javax.swing.JTable studentTable;
     private javax.swing.JComboBox<String> subject;
+    private javax.swing.JComboBox<String> teacher;
     private javax.swing.JPanel view;
     // End of variables declaration//GEN-END:variables
 
@@ -733,5 +757,70 @@ public class Student extends javax.swing.JPanel {
         } catch (IOException | ClassNotFoundException | SQLException ex) {
             LogWritter.logger.log(Level.WARNING, "Student Panal Student Loading", ex);
         }
+    }
+
+    private void findBadge() {
+        String subjectName = String.valueOf(subject.getSelectedItem());
+        if (!subjectName.equals("Select Subject")) {
+            String[] value = {"Select Badge"};
+            String qurty = "SELECT `badge`.id FROM `badge` WHERE `subject_id` = '" + this.subjectyMap.get(subjectName) + "' AND `badge`.`badge_status_id` != '1'";
+            try {
+                ItemLoader.getItemLoader().loadCombo(badge, qurty, value);
+            } catch (ClassNotFoundException | SQLException | IOException ex) {
+                LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
+            }
+        } else {
+            clearBadge();
+            badge.removeAllItems();
+            badge.addItem("Select Badge");
+        }
+    }
+
+    private void ShowTeachers(String subjectId) {
+        String qurty = "SELECT CONCAT(`fname`,`lname`) AS `name` FROM `teacher` "
+                + "INNER JOIN `subject_has_teacher` "
+                + "ON `subject_has_teacher`.teacher_nic = `teacher`.`nic` "
+                + "WHERE `subject_has_teacher`.`subject_id` = '" + subjectId + "'";
+        try {
+            ItemLoader.getItemLoader().loadCombo(teacher, qurty, new String[0]);
+        } catch (ClassNotFoundException | SQLException | IOException ex) {
+            LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
+        }
+    }
+
+    private void loadBadegInfo() {
+        String badge = String.valueOf(this.badge.getSelectedItem());
+        clearBadge();
+        if (!badge.equals("Select Badge")) {
+            try {
+
+                ResultSet rs = DB.search("SELECT `badge_status`.`name` AS `status`, "
+                        + "`badge`.`date`, `subject`.`price` AS `fee`, "
+                        + "`subject_duration`.`name` AS `duration` FROM `badge` "
+                        + "INNER JOIN `badge_status` ON `badge_status`.`id` = `badge`.`badge_status_id` "
+                        + "INNER JOIN `subject` ON `subject`.id = `badge`.subject_id "
+                        + "INNER JOIN `subject_duration` ON `subject_duration`.`id` = `subject`.`subject_duration_id` "
+                        + "WHERE `badge`.`id` = '" + badge + "'");
+
+                if (rs.next()) {
+                    this.badgeStatus.setText(rs.getString(1));
+                    this.startDate.setText(rs.getString(2));
+                    this.fee.setText(rs.getString(3));
+                    this.duration.setText(rs.getString(4));
+                    ShowTeachers(this.subjectyMap.get(subject.getSelectedItem()));
+                }
+
+            } catch (ClassNotFoundException | SQLException | IOException ex) {
+                LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
+            }
+        }
+    }
+
+    private void clearBadge() {
+        this.badgeStatus.setText("");
+        this.startDate.setText("");
+        this.duration.setText("");
+        this.fee.setText("");
+        this.teacher.removeAllItems();
     }
 }
