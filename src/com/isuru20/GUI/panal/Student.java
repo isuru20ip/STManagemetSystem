@@ -631,12 +631,11 @@ public class Student extends javax.swing.JPanel {
         SwingUtilities.updateComponentTreeUI(main);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    // the mectho fire at the selecting a subject
     private void subjectItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_subjectItemStateChanged
         findBadge();
-
-
     }//GEN-LAST:event_subjectItemStateChanged
-
+    // the method fire at the selecting a badge
     private void badgeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_badgeItemStateChanged
         loadBadegInfo();
     }//GEN-LAST:event_badgeItemStateChanged
@@ -714,6 +713,7 @@ public class Student extends javax.swing.JPanel {
         SwingUtilities.updateComponentTreeUI(btnPanal);
     }
 
+    // set the per loded panel
     private void firstLoad() {
         btnColorSetup(jButton1);
         main.removeAll();
@@ -759,6 +759,7 @@ public class Student extends javax.swing.JPanel {
         }
     }
 
+    // seach the badge mathcing for subject
     private void findBadge() {
         String subjectName = String.valueOf(subject.getSelectedItem());
         if (!subjectName.equals("Select Subject")) {
@@ -776,6 +777,7 @@ public class Student extends javax.swing.JPanel {
         }
     }
 
+    // find theacher matching  fro subject
     private void ShowTeachers(String subjectId) {
         String qurty = "SELECT CONCAT(`fname`,`lname`) AS `name` FROM `teacher` "
                 + "INNER JOIN `subject_has_teacher` "
@@ -788,6 +790,7 @@ public class Student extends javax.swing.JPanel {
         }
     }
 
+    // load the infromations of the badge and subject
     private void loadBadegInfo() {
         String badge = String.valueOf(this.badge.getSelectedItem());
         clearBadge();
@@ -816,6 +819,7 @@ public class Student extends javax.swing.JPanel {
         }
     }
 
+    // clear the subject related area componets
     private void clearBadge() {
         this.badgeStatus.setText("");
         this.startDate.setText("");
