@@ -1,6 +1,12 @@
 package com.isuru20.GUI.panal;
 
+import com.isuru20.modal.ItemLoader;
+import com.isuru20.modal.LogWritter;
 import java.awt.Color;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
@@ -9,6 +15,9 @@ public class Student extends javax.swing.JPanel {
     public Student() {
         initComponents();
         firstLoad();
+        loadCity();
+        loadSubjects();
+        loadStudents();
     }
 
     @SuppressWarnings("unchecked")
@@ -37,12 +46,12 @@ public class Student extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        city = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        subject = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
@@ -68,7 +77,7 @@ public class Student extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        studentTable = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
@@ -208,7 +217,7 @@ public class Student extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 153, 0));
         jLabel2.setText("Line-01");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        city.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 153, 0));
@@ -233,7 +242,7 @@ public class Student extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(city, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,7 +266,7 @@ public class Student extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1)
+                            .addComponent(city)
                             .addComponent(jTextField10))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -273,7 +282,7 @@ public class Student extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 153, 0));
         jLabel3.setText("Subject");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        subject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -315,7 +324,7 @@ public class Student extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField9)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox2, 0, 254, Short.MAX_VALUE)
+                    .addComponent(subject, 0, 254, Short.MAX_VALUE)
                     .addComponent(jLabel15))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +358,7 @@ public class Student extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(subject, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -501,18 +510,26 @@ public class Student extends javax.swing.JPanel {
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        studentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "NIC", "Name", "Subject", "Badge", "Stastus"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(studentTable);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -585,13 +602,14 @@ public class Student extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // Student Panal Register Student Menu Button
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         btnColorSetup(jButton1);
         main.removeAll();
         main.add(add);
         SwingUtilities.updateComponentTreeUI(main);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    // Student Panal View Student Menu Button
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         btnColorSetup(jButton2);
         main.removeAll();
@@ -599,18 +617,16 @@ public class Student extends javax.swing.JPanel {
         SwingUtilities.updateComponentTreeUI(main);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
     private javax.swing.JPanel btnPanal;
+    private javax.swing.JComboBox<String> city;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -641,7 +657,6 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField12;
@@ -656,9 +671,15 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel main;
+    private javax.swing.JTable studentTable;
+    private javax.swing.JComboBox<String> subject;
     private javax.swing.JPanel view;
     // End of variables declaration//GEN-END:variables
 
+    private HashMap<String, String> cityMap;
+    private HashMap<String, String> subjectyMap;
+
+    // colorUp the Clicked Button
     private void btnColorSetup(JButton btn) {
         jButton1.setBackground(Color.lightGray);
         jButton2.setBackground(Color.lightGray);
@@ -674,5 +695,43 @@ public class Student extends javax.swing.JPanel {
         main.removeAll();
         main.add(add);
         SwingUtilities.updateComponentTreeUI(main);
+    }
+
+    // Load the city into comboBox
+    private void loadCity() {
+        String[] value = {"Select City"};
+        String qurty = "SELECT `id`,`name` FROM `city` ORDER BY `name` ASC ";
+        try {
+            cityMap = ItemLoader.getItemLoader().loadComboPlus(city, qurty, value);
+        } catch (ClassNotFoundException | SQLException | IOException ex) {
+            LogWritter.logger.log(Level.WARNING, "Student Panal City Loading", ex);
+        }
+    }
+
+    // Load the Subject into Combob=Box
+    private void loadSubjects() {
+        String[] value = {"Select Subject"};
+        String qurty = "SELECT `id`,`name` FROM `subject` ORDER BY `name` ASC ";
+        try {
+            subjectyMap = ItemLoader.getItemLoader().loadComboPlus(subject, qurty, value);
+        } catch (ClassNotFoundException | SQLException | IOException ex) {
+            LogWritter.logger.log(Level.WARNING, "Student Panal Subject Loading", ex);
+        }
+    }
+
+    // Load Students Into jTable
+    private void loadStudents() {
+        try {
+            String query = "SELECT `nic`,CONCAT(`fname`,' ',`lname`) AS `name`,"
+                    + " `subject`.`name` AS `sname`,`badge`.`id` AS `badge`,"
+                    + "`student_status`.`name` AS `status` FROM `student` "
+                    + "INNER JOIN `badge` ON `badge`.id = `student`.badge_id "
+                    + "INNER JOIN `subject` ON `subject`.id = `badge`.`subject_id` "
+                    + "INNER JOIN `student_status` ON `student_status`.id = `student`.`student_status_id`";
+            String[] colums = {"nic", "name", "sname", "badge", "status"};
+            ItemLoader.getItemLoader().loadTable(studentTable, query, colums);
+        } catch (IOException | ClassNotFoundException | SQLException ex) {
+            LogWritter.logger.log(Level.WARNING, "Student Panal Student Loading", ex);
+        }
     }
 }

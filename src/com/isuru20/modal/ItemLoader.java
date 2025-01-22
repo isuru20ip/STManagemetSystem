@@ -39,6 +39,7 @@ public class ItemLoader {
             for (String colum : colums) {
                 v.add(rs.getString(colum));
             }
+            defaultTableModel.addRow(v);
         }
         table.setModel(defaultTableModel);
 
