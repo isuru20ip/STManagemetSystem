@@ -6,8 +6,10 @@ import com.isuru20.GUI.panal.Student;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import org.w3c.dom.css.RGBColor;
 
 public class Home extends javax.swing.JFrame {
 
@@ -23,9 +25,9 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        student = new javax.swing.JButton();
+        teacher = new javax.swing.JButton();
+        payment = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -49,28 +51,38 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2);
 
-        jButton1.setBackground(new java.awt.Color(255, 204, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Students");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        student.setBackground(new java.awt.Color(255, 204, 102));
+        student.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        student.setForeground(new java.awt.Color(0, 0, 0));
+        student.setText("Students");
+        student.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                studentActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
+        jPanel1.add(student);
 
-        jButton3.setBackground(new java.awt.Color(255, 204, 102));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("Teachers");
-        jPanel1.add(jButton3);
+        teacher.setBackground(new java.awt.Color(255, 204, 102));
+        teacher.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        teacher.setForeground(new java.awt.Color(0, 0, 0));
+        teacher.setText("Teachers");
+        teacher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherActionPerformed(evt);
+            }
+        });
+        jPanel1.add(teacher);
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 102));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 0, 0));
-        jButton4.setText("Payments");
-        jPanel1.add(jButton4);
+        payment.setBackground(new java.awt.Color(255, 204, 102));
+        payment.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        payment.setForeground(new java.awt.Color(0, 0, 0));
+        payment.setText("Payments");
+        payment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentActionPerformed(evt);
+            }
+        });
+        jPanel1.add(payment);
 
         jButton6.setBackground(new java.awt.Color(255, 204, 102));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -133,13 +145,22 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void studentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentActionPerformed
         loadPanel(new Student());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        buttonColorSetup(student);
+    }//GEN-LAST:event_studentActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         loadPanel(new Dashboard());
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void teacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherActionPerformed
+        buttonColorSetup(teacher);
+    }//GEN-LAST:event_teacherActionPerformed
+
+    private void paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentActionPerformed
+        buttonColorSetup(payment);
+    }//GEN-LAST:event_paymentActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -162,18 +183,18 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel main;
+    private javax.swing.JButton payment;
+    private javax.swing.JButton student;
+    private javax.swing.JButton teacher;
     // End of variables declaration//GEN-END:variables
 
     private JPanel current;
@@ -193,6 +214,15 @@ public class Home extends javax.swing.JFrame {
     private void panalSetup() {
         current = new Dashboard();
         main.add(current, BorderLayout.CENTER);
+    }
+    
+    private void buttonColorSetup(JButton btn){
+
+        student.setBackground(new Color(255, 204, 102));
+        teacher.setBackground(new Color(255, 204, 102));
+        payment.setBackground(new Color(255, 204, 102));
+        
+        btn.setBackground(new Color(255,102,0));
     }
 
 }
