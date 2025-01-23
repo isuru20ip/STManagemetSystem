@@ -146,7 +146,7 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void studentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentActionPerformed
-        loadPanel(new Student());
+        loadPanel(new Student(this));
         buttonColorSetup(student);
     }//GEN-LAST:event_studentActionPerformed
 

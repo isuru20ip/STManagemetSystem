@@ -1,9 +1,12 @@
 package com.isuru20.GUI.panal;
 
+import com.isuru20.GUI.Frame.Home;
+import com.isuru20.GUI.dialog.StudentProfile;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.ItemLoader;
 import com.isuru20.modal.LogWritter;
 import java.awt.Color;
+import java.awt.Frame;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -14,17 +17,21 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Student extends javax.swing.JPanel {
 
-    public Student() {
+    private JFrame root;
+
+    public Student(JFrame parent) {
         initComponents();
         firstLoad();
         loadCity();
         loadSubjects();
         loadStudents("");
         loadBadge();
+        root = parent;
     }
 
     @SuppressWarnings("unchecked")
@@ -557,6 +564,11 @@ public class Student extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        studentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(studentTable);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -674,6 +686,12 @@ public class Student extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         clearSort();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            updateStudent();
+        }
+    }//GEN-LAST:event_studentTableMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
@@ -1031,5 +1049,10 @@ public class Student extends javax.swing.JPanel {
         this.sortBadge.setSelectedIndex(0);
         this.sortMobile.setText("");
         loadStudents("");
+    }
+
+    private void updateStudent() {
+        String nic = (String) studentTable.getValueAt(studentTable.getSelectedRow(), 0);
+        new StudentProfile(root, true, nic).setVisible(true);
     }
 }
