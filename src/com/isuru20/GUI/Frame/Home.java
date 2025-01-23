@@ -1,7 +1,6 @@
 package com.isuru20.GUI.Frame;
 
 import com.formdev.flatlaf.IntelliJTheme;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import com.isuru20.GUI.panal.Dashboard;
 import com.isuru20.GUI.panal.Student;
 import java.awt.BorderLayout;
@@ -10,7 +9,7 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import org.w3c.dom.css.RGBColor;
+
 
 public class Home extends javax.swing.JFrame {
 

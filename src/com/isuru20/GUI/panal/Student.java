@@ -11,6 +11,10 @@ import java.util.logging.Level;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Student extends javax.swing.JPanel {
 
@@ -32,21 +36,21 @@ public class Student extends javax.swing.JPanel {
         main = new javax.swing.JPanel();
         add = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        birthDay = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        mobile = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        lname = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        fname = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nic = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        line2 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        line1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         city = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
@@ -116,31 +120,31 @@ public class Student extends javax.swing.JPanel {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jDateChooser1.setForeground(new java.awt.Color(255, 255, 255));
+        birthDay.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 153, 0));
         jLabel9.setText("Birthday");
 
-        jTextField8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mobile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 153, 0));
         jLabel8.setText("Mobile");
 
-        jTextField7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 153, 0));
         jLabel7.setText("Last Name");
 
-        jTextField6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 153, 0));
         jLabel6.setText("First Name");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nic.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 153, 0));
@@ -154,23 +158,23 @@ public class Student extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1))
+                    .addComponent(nic))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6))
+                    .addComponent(fname))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField7))
+                    .addComponent(lname))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField8))
+                    .addComponent(mobile))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(birthDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
@@ -181,23 +185,23 @@ public class Student extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nic, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField8)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(mobile)
+                            .addComponent(birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(12, 12, 12))
         );
 
@@ -207,13 +211,13 @@ public class Student extends javax.swing.JPanel {
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
         jLabel10.setText("City");
 
-        jTextField10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        line2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 153, 0));
         jLabel12.setText("City");
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        line1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 153, 0));
@@ -235,10 +239,10 @@ public class Student extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(line1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField10)
+                    .addComponent(line2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -267,9 +271,9 @@ public class Student extends javax.swing.JPanel {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(line1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(city)
-                            .addComponent(jTextField10))))
+                            .addComponent(line2))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -338,12 +342,12 @@ public class Student extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fee)
                     .addComponent(jLabel3)
-                    .addComponent(subject, 0, 254, Short.MAX_VALUE)
+                    .addComponent(subject, 0, 246, Short.MAX_VALUE)
                     .addComponent(jLabel15))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(duration)
-                    .addComponent(badge, 0, 234, Short.MAX_VALUE)
+                    .addComponent(badge, 0, 250, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
@@ -351,7 +355,7 @@ public class Student extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(teacher, javax.swing.GroupLayout.Alignment.LEADING, 0, 261, Short.MAX_VALUE)
+                                .addComponent(teacher, javax.swing.GroupLayout.Alignment.LEADING, 0, 253, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel11))
                         .addGap(16, 16, 16))
@@ -373,7 +377,7 @@ public class Student extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(subject, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(18, 19, Short.MAX_VALUE)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fee, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -391,7 +395,7 @@ public class Student extends javax.swing.JPanel {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(badge, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(badgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
@@ -408,11 +412,21 @@ public class Student extends javax.swing.JPanel {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Register Student");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(255, 153, 0));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Clear All");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
         add.setLayout(addLayout);
@@ -422,12 +436,11 @@ public class Student extends javax.swing.JPanel {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(addLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(addLayout.createSequentialGroup()
-                        .addGap(708, 708, 708)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -436,7 +449,7 @@ public class Student extends javax.swing.JPanel {
             .addGroup(addLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -640,21 +653,30 @@ public class Student extends javax.swing.JPanel {
         loadBadegInfo();
     }//GEN-LAST:event_badgeItemStateChanged
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        addStudent();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        clearAll();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
     private javax.swing.JComboBox<String> badge;
     private javax.swing.JTextField badgeStatus;
+    private com.toedter.calendar.JDateChooser birthDay;
     private javax.swing.JPanel btnPanal;
     private javax.swing.JComboBox<String> city;
     private javax.swing.JTextField duration;
     private javax.swing.JTextField fee;
+    private javax.swing.JTextField fname;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -682,16 +704,15 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField line1;
+    private javax.swing.JTextField line2;
+    private javax.swing.JTextField lname;
     private javax.swing.JPanel main;
+    private javax.swing.JTextField mobile;
+    private javax.swing.JTextField nic;
     private javax.swing.JTextField startDate;
     private javax.swing.JTable studentTable;
     private javax.swing.JComboBox<String> subject;
@@ -819,6 +840,85 @@ public class Student extends javax.swing.JPanel {
         }
     }
 
+    // register new student 
+    private void addStudent() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        String NIC = this.nic.getText();
+        String fName = this.fname.getText();
+        String lName = this.lname.getText();
+        String phone = this.mobile.getText();
+        Date dob = this.birthDay.getDate();
+        String line01 = this.line1.getText();
+        String line02 = this.line2.getText();
+        String city = String.valueOf(this.city.getSelectedItem());
+        String badge = String.valueOf(this.badge.getSelectedItem());
+
+        // NIC validation
+        if (NIC.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NIC is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (NIC.length() != 12 && NIC.length() != 10) {
+            JOptionPane.showMessageDialog(this, "Invalid NIC Number", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // First name validation
+        else if (fName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "First Name is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!fName.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(this, "First Name can only contain letters", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // Last name validation
+        else if (lName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Last Name is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!lName.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(this, "Last Name can only contain letters", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // Phone number validation
+        else if (phone.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Phone number is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!phone.matches("07[01245678][0-9]{7}")) {
+            JOptionPane.showMessageDialog(this, "Invalid Phone Number", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // Age validation
+        else if (dob == null) {
+            JOptionPane.showMessageDialog(this, "Date of Birth is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // Address line 1 validation
+        else if (line01.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address Line 1 is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // Address line 2 validation
+        else if (line01.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address Line 2 is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // City validation
+        else if (city.equals("Select City")) {
+            JOptionPane.showMessageDialog(this, "Please select a city", "Warning", JOptionPane.WARNING_MESSAGE);
+        } // Badge validation
+        else if (badge.equals("Select Badge")) {
+            JOptionPane.showMessageDialog(this, "Please select a badge", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+
+            try {
+
+                boolean isStudent = DB.search("SELECT `nic` FROM `student` WHERE `nic` = '" + NIC + "'").next();
+
+                if (isStudent) {
+                    JOptionPane.showMessageDialog(this, "The Student has Alredy been Registerd", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                DB.IUD("INSERT INTO `address` (`line01`, `line02`, `city_id`) VALUES ('" + line01 + "', '" + line02 + "', '" + cityMap.get(city) + "');");
+                ResultSet rs = DB.search("SELECT LAST_INSERT_ID() AS last_id");
+                rs.next();
+                DB.IUD("INSERT INTO `student` "
+                        + "(`nic`, `fname`, `lname`, `dob`, `mobile`, `jdate`,"
+                        + " `address_id`, `badge_id`, `student_status_id`) "
+                        + "VALUES ('" + NIC + "', '" + fName + "', '" + lName + "', "
+                        + "'" + sdf.format(dob) + "', '" + phone + "', '" + sdf.format(new Date()) + "', '" + rs.getString(1) + "', '" + badge + "', 1);");
+                JOptionPane.showMessageDialog(this, "Student registration successful.", "success", JOptionPane.INFORMATION_MESSAGE);
+                clearAll();
+            } catch (ClassNotFoundException | SQLException | IOException ex) {
+                Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
     // clear the subject related area componets
     private void clearBadge() {
         this.badgeStatus.setText("");
@@ -826,5 +926,20 @@ public class Student extends javax.swing.JPanel {
         this.duration.setText("");
         this.fee.setText("");
         this.teacher.removeAllItems();
+    }
+
+    private void clearAll() {
+        this.nic.setText("");
+        this.fname.setText("");
+        this.lname.setText("");
+        this.mobile.setText("");
+        this.birthDay.cleanup();
+        this.line1.setText("");
+        this.line2.setText("");
+        this.city.setSelectedItem(0);
+        this.subject.setSelectedIndex(0);
+        this.badge.removeAllItems();
+        this.badge.addItem("Select Badge");
+        clearBadge();
     }
 }
