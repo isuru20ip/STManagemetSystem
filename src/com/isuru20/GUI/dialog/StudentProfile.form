@@ -44,10 +44,10 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="nic2" max="32767" attributes="0"/>
+                      <Component id="line01" max="32767" attributes="0"/>
                       <Component id="jLabel1" max="32767" attributes="0"/>
                       <Component id="jSeparator1" max="32767" attributes="0"/>
-                      <Component id="nic3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="line02" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
@@ -58,11 +58,11 @@
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="nic1" min="-2" pref="202" max="-2" attributes="0"/>
+                                      <Component id="sname" min="-2" pref="202" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="city" min="-2" pref="186" max="-2" attributes="0"/>
+                                      <Component id="status" min="-2" pref="186" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -73,10 +73,8 @@
                           <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="city1" min="-2" pref="186" max="-2" attributes="0"/>
+                          <Component id="city" min="-2" pref="186" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="142" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButton4" min="-2" pref="142" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -100,28 +98,27 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="nic1" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="sname" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="city" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="status" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="nic2" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="line01" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="nic3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="line02" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="city1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="city" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jButton4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -157,6 +154,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="nic">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
@@ -173,8 +171,9 @@
             <Property name="text" type="java.lang.String" value="Name"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nic1">
+        <Component class="javax.swing.JTextField" name="sname">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
@@ -191,7 +190,7 @@
             <Property name="text" type="java.lang.String" value="Status"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="city">
+        <Component class="javax.swing.JComboBox" name="status">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -217,7 +216,7 @@
             <Property name="text" type="java.lang.String" value="Line-01"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nic2">
+        <Component class="javax.swing.JTextField" name="line01">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -235,7 +234,7 @@
             <Property name="text" type="java.lang.String" value="Line-01"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nic3">
+        <Component class="javax.swing.JTextField" name="line02">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -253,7 +252,7 @@
             <Property name="text" type="java.lang.String" value="City"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="city1">
+        <Component class="javax.swing.JComboBox" name="city">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -267,20 +266,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="99" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Clear"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
