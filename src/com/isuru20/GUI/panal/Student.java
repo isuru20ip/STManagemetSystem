@@ -23,7 +23,8 @@ public class Student extends javax.swing.JPanel {
         firstLoad();
         loadCity();
         loadSubjects();
-        loadStudents();
+        loadStudents("");
+        loadBadge();
     }
 
     @SuppressWarnings("unchecked")
@@ -74,13 +75,12 @@ public class Student extends javax.swing.JPanel {
         view = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
+        sortNIC = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jTextField14 = new javax.swing.JTextField();
+        sortMobile = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
+        sortBadge = new javax.swing.JComboBox<>();
+        jButton7 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentTable = new javax.swing.JTable();
@@ -470,23 +470,27 @@ public class Student extends javax.swing.JPanel {
         jLabel17.setForeground(new java.awt.Color(255, 153, 0));
         jLabel17.setText("Student NIC ");
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel18.setText("Birthday");
+        sortNIC.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 153, 0));
         jLabel19.setText("Badge");
 
-        jTextField13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        jTextField14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        sortMobile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 153, 0));
         jLabel20.setText("Mobile");
+
+        jButton7.setBackground(new java.awt.Color(255, 153, 0));
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 0, 0));
+        jButton7.setText("Sort");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -496,20 +500,19 @@ public class Student extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sortNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(sortBadge, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(sortMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel20))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,19 +522,17 @@ public class Student extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sortMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel18)
-                                .addComponent(jLabel19)))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(sortNIC, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(sortBadge))))
                 .addContainerGap())
         );
 
@@ -575,6 +576,11 @@ public class Student extends javax.swing.JPanel {
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setText("Clear");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(255, 153, 0));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -625,7 +631,7 @@ public class Student extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnPanal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(main, javax.swing.GroupLayout.PREFERRED_SIZE, 491, Short.MAX_VALUE))
+                .addComponent(main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -661,6 +667,14 @@ public class Student extends javax.swing.JPanel {
         clearAll();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        sortStudents();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        clearSort();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
     private javax.swing.JComboBox<String> badge;
@@ -677,7 +691,7 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -687,7 +701,6 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -704,15 +717,15 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField line1;
     private javax.swing.JTextField line2;
     private javax.swing.JTextField lname;
     private javax.swing.JPanel main;
     private javax.swing.JTextField mobile;
     private javax.swing.JTextField nic;
+    private javax.swing.JComboBox<String> sortBadge;
+    private javax.swing.JTextField sortMobile;
+    private javax.swing.JTextField sortNIC;
     private javax.swing.JTextField startDate;
     private javax.swing.JTable studentTable;
     private javax.swing.JComboBox<String> subject;
@@ -765,14 +778,14 @@ public class Student extends javax.swing.JPanel {
     }
 
     // Load Students Into jTable
-    private void loadStudents() {
+    private void loadStudents(String condition) {
         try {
             String query = "SELECT `nic`,CONCAT(`fname`,' ',`lname`) AS `name`,"
                     + " `subject`.`name` AS `sname`,`badge`.`id` AS `badge`,"
                     + "`student_status`.`name` AS `status` FROM `student` "
                     + "INNER JOIN `badge` ON `badge`.id = `student`.badge_id "
                     + "INNER JOIN `subject` ON `subject`.id = `badge`.`subject_id` "
-                    + "INNER JOIN `student_status` ON `student_status`.id = `student`.`student_status_id`";
+                    + "INNER JOIN `student_status` ON `student_status`.id = `student`.`student_status_id` " + condition;
             String[] colums = {"nic", "name", "sname", "badge", "status"};
             ItemLoader.getItemLoader().loadTable(studentTable, query, colums);
         } catch (IOException | ClassNotFoundException | SQLException ex) {
@@ -928,6 +941,7 @@ public class Student extends javax.swing.JPanel {
         this.teacher.removeAllItems();
     }
 
+    // clear the all compones 
     private void clearAll() {
         this.nic.setText("");
         this.fname.setText("");
@@ -941,5 +955,81 @@ public class Student extends javax.swing.JPanel {
         this.badge.removeAllItems();
         this.badge.addItem("Select Badge");
         clearBadge();
+    }
+
+    // <><>--------------------------View Panale--------------------------<><>
+    private void loadBadge() {
+
+        String[] value = {"Select Badge"};
+        String qurty = "SELECT `badge`.id FROM `badge` ORDER BY `badge`.`date` ASC";
+        try {
+            ItemLoader.getItemLoader().loadCombo(sortBadge, qurty, value);
+        } catch (ClassNotFoundException | SQLException | IOException ex) {
+            LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
+        }
+
+    }
+
+    // sort Students
+    private void sortStudents() {
+
+        String nic = this.sortNIC.getText();
+        String badge = String.valueOf(this.sortBadge.getSelectedItem());
+        String phone = this.sortMobile.getText();
+
+        boolean ns = !nic.isEmpty(); // NIC is not empty
+        boolean bs = !badge.equals("Select Badge"); // Badge is selected
+        boolean ps = !phone.isEmpty(); // Phone is not empty
+
+        String q = "";
+// Only NIC is input
+        if (ns && !bs && !ps) {
+            q = "WHERE `student`.`nic` LIKE '%" + nic + "%' ";
+        }
+
+// Only Badge is input
+        if (!ns && bs && !ps) {
+            q = "WHERE `badge`.`id` = '" + badge + "'";
+        }
+
+// Only Phone is input
+        if (!ns && !bs && ps) {
+            q = "WHERE `student`.`mobile` LIKE '%" + phone + "%'";
+        }
+
+// Both NIC and Badge are input
+        if (ns && bs && !ps) {
+            q = "WHERE `student`.`nic` LIKE '%" + nic + "%' AND `badge`.`id` = '" + badge + "' ";
+        }
+
+// Both NIC and Phone are input
+        if (ns && !bs && ps) {
+            q = "WHERE `student`.`nic` LIKE '%" + nic + "%' AND `student`.`mobile` LIKE '%" + phone + "%' ";
+        }
+
+// Both Badge and Phone are input
+        if (!ns && bs && ps) {
+            q = "WHERE `badge`.`id` = '" + badge + "' AND `student`.`mobile` LIKE '%" + phone + "%' ";
+        }
+
+// All three inputs are provided
+        if (ns && bs && ps) {
+            q = "WHERE `student`.`nic` LIKE '%" + nic + "%' AND `badge`.`id` = '" + badge + "' AND `student`.`mobile` LIKE '%" + phone + "%' ";
+        }
+
+// No input provided
+        if (!ns && !bs && !ps) {
+            loadStudents(q);
+        } else {
+            loadStudents(q);
+        }
+
+    }
+
+    private void clearSort() {
+        this.sortNIC.setText("");
+        this.sortBadge.setSelectedIndex(0);
+        this.sortMobile.setText("");
+        loadStudents("");
     }
 }
