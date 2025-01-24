@@ -3,6 +3,7 @@ package com.isuru20.GUI.Frame;
 import com.formdev.flatlaf.IntelliJTheme;
 import com.isuru20.GUI.panal.Dashboard;
 import com.isuru20.GUI.panal.Student;
+import com.isuru20.GUI.panal.Subject;
 import com.isuru20.GUI.panal.Teacher;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,7 +11,6 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 
 public class Home extends javax.swing.JFrame {
 
@@ -29,7 +29,7 @@ public class Home extends javax.swing.JFrame {
         student = new javax.swing.JButton();
         teacher = new javax.swing.JButton();
         payment = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        subject = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -85,11 +85,16 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel1.add(payment);
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 102));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 0, 0));
-        jButton6.setText("Subjects");
-        jPanel1.add(jButton6);
+        subject.setBackground(new java.awt.Color(255, 204, 102));
+        subject.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        subject.setForeground(new java.awt.Color(0, 0, 0));
+        subject.setText("Subjects");
+        subject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subjectActionPerformed(evt);
+            }
+        });
+        jPanel1.add(subject);
 
         jButton7.setBackground(new java.awt.Color(255, 204, 102));
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -164,6 +169,11 @@ public class Home extends javax.swing.JFrame {
         buttonColorSetup(payment);
     }//GEN-LAST:event_paymentActionPerformed
 
+    private void subjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subjectActionPerformed
+        loadPanel(new Subject(this));
+        buttonColorSetup(subject);
+    }//GEN-LAST:event_subjectActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         IntelliJTheme.setup(Home.class.getResourceAsStream(
@@ -189,7 +199,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -197,6 +206,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel main;
     private javax.swing.JButton payment;
     private javax.swing.JButton student;
+    private javax.swing.JButton subject;
     private javax.swing.JButton teacher;
     // End of variables declaration//GEN-END:variables
 
@@ -224,6 +234,7 @@ public class Home extends javax.swing.JFrame {
         student.setBackground(new Color(255, 204, 102));
         teacher.setBackground(new Color(255, 204, 102));
         payment.setBackground(new Color(255, 204, 102));
+        subject.setBackground(new Color(255, 204, 102));
 
         btn.setBackground(new Color(255, 102, 0));
     }

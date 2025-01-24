@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -67,13 +69,13 @@ public class ItemLoader {
         for (String value : manualValues) {
             v.add(value);
         }
-        HashMap<String,String> map = new HashMap<>();
-        
+        HashMap<String, String> map = new HashMap<>();
+
         /*
         * the first value musat be the id of the combo display vaule
         * the second value must be the combo display vale
         * load values to the given combox and return the hash map with values and it's ID
-        */
+         */
         while (rs.next()) {
             v.add(rs.getString(2));
             map.put(rs.getString(2), rs.getString(1));
@@ -81,6 +83,18 @@ public class ItemLoader {
         DefaultComboBoxModel boxModel = new DefaultComboBoxModel(v);
         combo.setModel(boxModel);
         return map;
+    }
+
+    public HashMap loadList(JList list, String query) throws ClassNotFoundException, SQLException, IOException {
+        ResultSet rs = DB.search(query);
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        HashMap<String, String> subjectMap = new HashMap<>();
+        while (rs.next()) {
+            listModel.addElement(rs.getString(2));
+            subjectMap.put(rs.getString(2), rs.getString(1));
+        }
+        list.setModel(listModel);
+        return subjectMap;
     }
 
 }
