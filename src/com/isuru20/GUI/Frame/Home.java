@@ -3,6 +3,7 @@ package com.isuru20.GUI.Frame;
 import com.formdev.flatlaf.IntelliJTheme;
 import com.isuru20.GUI.panal.Dashboard;
 import com.isuru20.GUI.panal.Student;
+import com.isuru20.GUI.panal.Teacher;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -155,6 +156,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void teacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherActionPerformed
+        loadPanel(new Teacher(this));
         buttonColorSetup(teacher);
     }//GEN-LAST:event_teacherActionPerformed
 
