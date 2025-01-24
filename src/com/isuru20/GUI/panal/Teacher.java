@@ -1,6 +1,7 @@
 package com.isuru20.GUI.panal;
 
 import com.isuru20.GUI.dialog.StudentProfile;
+import com.isuru20.GUI.dialog.TeacherProfile;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.ItemLoader;
 import com.isuru20.modal.LogWritter;
@@ -612,7 +613,7 @@ public class Teacher extends javax.swing.JPanel {
 
     private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked
         if (evt.getClickCount() == 2) {
-            updateStudent();
+           updateTeacher();
         }
     }//GEN-LAST:event_studentTableMouseClicked
 
@@ -728,7 +729,6 @@ public class Teacher extends javax.swing.JPanel {
                     + "INNER JOIN `teacher_status` ON `teacher_status`.`id` = `teacher`.`teacher_status_id` "+ condition
                     + " GROUP BY `teacher`.`nic`, `name`, `status`;";
             String[] colums = {"nic", "name", "subjects", "status"};
-            System.out.println(query);
             ItemLoader.getItemLoader().loadTable(studentTable, query, colums);
         } catch (IOException | ClassNotFoundException | SQLException ex) {
             LogWritter.logger.log(Level.WARNING, "Student Panal Student Loading", ex);
@@ -910,9 +910,10 @@ public class Teacher extends javax.swing.JPanel {
         loadTeacher("");
     }
 
-    private void updateStudent() {
+    private void updateTeacher() {
         String nic = (String) studentTable.getValueAt(studentTable.getSelectedRow(), 0);
-        new StudentProfile(root, true, nic).setVisible(true);
+        new TeacherProfile(root, true, nic).setVisible(true);
+        loadTeacher("");
     }
 
 }
