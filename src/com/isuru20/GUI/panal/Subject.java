@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 public class Subject extends javax.swing.JPanel {
 
@@ -30,18 +31,21 @@ public class Subject extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         teacherList = new javax.swing.JList<>();
-        subject = new javax.swing.JTextField();
+        newSubject = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        teacherId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         price = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         duration = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        subjectName = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(998, 537));
 
@@ -62,8 +66,8 @@ public class Subject extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(teacherList);
 
-        subject.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        subject.setForeground(new java.awt.Color(255, 255, 255));
+        newSubject.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        newSubject.setForeground(new java.awt.Color(255, 255, 255));
 
         jButton1.setBackground(new java.awt.Color(255, 153, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -79,6 +83,11 @@ public class Subject extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Add Teacher");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -92,8 +101,8 @@ public class Subject extends javax.swing.JPanel {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Add New Teacher");
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        teacherId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        teacherId.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,6 +122,20 @@ public class Subject extends javax.swing.JPanel {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Duration");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Teacher");
+
+        subjectName.setEditable(false);
+        subjectName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        subjectName.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("Subject");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +143,6 @@ public class Subject extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -133,19 +155,28 @@ public class Subject extends javax.swing.JPanel {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(subject)
+                            .addComponent(teacherId, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(newSubject)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                             .addComponent(price)
-                            .addComponent(duration, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(duration, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(subjectName, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -170,7 +201,7 @@ public class Subject extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(subject, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                    .addComponent(newSubject, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -182,11 +213,17 @@ public class Subject extends javax.swing.JPanel {
                                     .addComponent(duration))
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(teacherId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(subjectName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2))))
                 .addContainerGap())
@@ -203,13 +240,19 @@ public class Subject extends javax.swing.JPanel {
         addNewSubject();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        setTeacher();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> duration;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -218,10 +261,11 @@ public class Subject extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField newSubject;
     private javax.swing.JTextField price;
-    private javax.swing.JTextField subject;
     private javax.swing.JList<String> subjectList;
+    private javax.swing.JTextField subjectName;
+    private javax.swing.JTextField teacherId;
     private javax.swing.JList<String> teacherList;
     // End of variables declaration//GEN-END:variables
 
@@ -229,6 +273,7 @@ public class Subject extends javax.swing.JPanel {
     HashMap<String, String> teacherMap = new HashMap<>();
     HashMap<String, String> durationMap = new HashMap<>();
 
+    // load subject into list
     private void loadSubject() {
         try {
             String q = "SELECT `id`,`name` FROM `subject` ORDER BY `name` ASC ";
@@ -238,8 +283,10 @@ public class Subject extends javax.swing.JPanel {
         }
     }
 
+    // load teacher into list
     private void findTeacher() {
         String subject = subjectList.getSelectedValue();
+        this.subjectName.setText(subject);
         String q = "SELECT `nic`, CONCAT(`fname`,' ',`lname`) FROM `teacher` "
                 + "INNER JOIN `subject_has_teacher` ON "
                 + "`subject_has_teacher`.`teacher_nic` = `teacher`.`nic` "
@@ -251,8 +298,9 @@ public class Subject extends javax.swing.JPanel {
         }
     }
 
+    // add new subject into database
     private void addNewSubject() {
-        String subject = this.subject.getText();
+        String subject = this.newSubject.getText();
         if (!subject.isEmpty() && !price.getText().isEmpty() && !duration.getSelectedItem().equals("Select Duration")) {
             try {
                 boolean isSubject = DB.search("SELECT `name` FROM `subject` WHERE `name` = '" + subject + "'").next();
@@ -261,7 +309,7 @@ public class Subject extends javax.swing.JPanel {
                             + "VALUES ('" + subject + "', '" + price.getText() + "', '" + durationMap.get(duration.getSelectedItem()) + "');");
                     JOptionPane.showMessageDialog(this, "New Subject Added Success", "Success", JOptionPane.INFORMATION_MESSAGE);
                     loadSubject();
-                    this.subject.setText("");
+                    this.newSubject.setText("");
                     this.price.setText("");
                     this.duration.setSelectedIndex(0);
                 } else {
@@ -275,13 +323,52 @@ public class Subject extends javax.swing.JPanel {
         }
     }
 
+    // load subject duration comboBox
     private void loadDuration() {
         String[] value = {"Select Duration"};
         String qurty = "SELECT `id`,`name` FROM `subject_duration`";
         try {
             durationMap = ItemLoader.getItemLoader().loadComboPlus(duration, qurty, value);
         } catch (ClassNotFoundException | SQLException | IOException ex) {
-            LogWritter.logger.log(Level.WARNING, "Student Panal City Loading", ex);
+            LogWritter.logger.log(Level.WARNING, "subject Panal Duration Loading", ex);
         }
     }
+
+    private void setTeacher() {
+        String subject = this.subjectName.getText();
+        String teacher = this.teacherId.getText();
+
+        if (subject.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Select a subject on the list ", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (teacher.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NIC is required", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String sid = subjectMap.get(subject);
+
+            try {
+                boolean isTeacher = DB.search("SELECT `nic` FROM `teacher` WHERE `nic` = '" + teacher + "'").next();
+                System.out.println(isTeacher);
+                if (isTeacher) {
+                    ResultSet rs = DB.search(" SELECT COUNT(`teacher_nic`) FROM `subject_has_teacher` WHERE `teacher_nic` = '"+teacher+"' ");
+                    rs.next();
+                    if (Integer.parseInt(rs.getString(1)) <= 1) {
+                        DB.IUD("INSERT INTO `subject_has_teacher` (`subject_id`, `teacher_nic`) VALUES ('" + sid + "', '" + teacher + "');");
+                        JOptionPane.showMessageDialog(this, "New Teacher is added to the Subject", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        loadSubject();
+                        this.teacherId.setText("");
+                        this.subjectName.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "A Teacher Can have tow Subject only", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid NIC number", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (HeadlessException | IOException | ClassNotFoundException | NumberFormatException | SQLException ex) {
+                LogWritter.logger.log(Level.WARNING, "Subject Panal add Teacher Loading", ex);
+
+            }
+
+        }
+    }
+
 }
