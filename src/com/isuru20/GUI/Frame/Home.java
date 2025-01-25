@@ -2,6 +2,7 @@ package com.isuru20.GUI.Frame;
 
 import com.formdev.flatlaf.IntelliJTheme;
 import com.isuru20.GUI.panal.Dashboard;
+import com.isuru20.GUI.panal.Shedule;
 import com.isuru20.GUI.panal.Student;
 import com.isuru20.GUI.panal.Subject;
 import com.isuru20.GUI.panal.Teacher;
@@ -30,7 +31,7 @@ public class Home extends javax.swing.JFrame {
         teacher = new javax.swing.JButton();
         payment = new javax.swing.JButton();
         subject = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        shedule = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
@@ -96,11 +97,16 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel1.add(subject);
 
-        jButton7.setBackground(new java.awt.Color(255, 204, 102));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 0, 0));
-        jButton7.setText("Shedule");
-        jPanel1.add(jButton7);
+        shedule.setBackground(new java.awt.Color(255, 204, 102));
+        shedule.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        shedule.setForeground(new java.awt.Color(0, 0, 0));
+        shedule.setText("Shedule");
+        shedule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sheduleActionPerformed(evt);
+            }
+        });
+        jPanel1.add(shedule);
 
         jButton8.setBackground(new java.awt.Color(255, 204, 102));
         jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -174,6 +180,11 @@ public class Home extends javax.swing.JFrame {
         buttonColorSetup(subject);
     }//GEN-LAST:event_subjectActionPerformed
 
+    private void sheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sheduleActionPerformed
+        loadPanel(new Shedule());
+        buttonColorSetup(shedule);
+    }//GEN-LAST:event_sheduleActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         IntelliJTheme.setup(Home.class.getResourceAsStream(
@@ -199,12 +210,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel main;
     private javax.swing.JButton payment;
+    private javax.swing.JButton shedule;
     private javax.swing.JButton student;
     private javax.swing.JButton subject;
     private javax.swing.JButton teacher;
@@ -235,6 +246,7 @@ public class Home extends javax.swing.JFrame {
         teacher.setBackground(new Color(255, 204, 102));
         payment.setBackground(new Color(255, 204, 102));
         subject.setBackground(new Color(255, 204, 102));
+        shedule.setBackground(new Color(255, 204, 102));
 
         btn.setBackground(new Color(255, 102, 0));
     }
