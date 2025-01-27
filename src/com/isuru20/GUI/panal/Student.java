@@ -1,12 +1,10 @@
 package com.isuru20.GUI.panal;
 
-import com.isuru20.GUI.Frame.Home;
 import com.isuru20.GUI.dialog.StudentProfile;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.ItemLoader;
 import com.isuru20.modal.LogWritter;
 import java.awt.Color;
-import java.awt.Frame;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
