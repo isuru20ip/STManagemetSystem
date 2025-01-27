@@ -1,7 +1,7 @@
 package com.isuru20.GUI.Frame;
 
 import com.formdev.flatlaf.IntelliJTheme;
-import com.isuru20.GUI.panal.Dashboard;
+import com.isuru20.GUI.panal.Attendance;
 import com.isuru20.GUI.panal.Shedule;
 import com.isuru20.GUI.panal.Student;
 import com.isuru20.GUI.panal.Subject;
@@ -26,14 +26,13 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         student = new javax.swing.JButton();
         teacher = new javax.swing.JButton();
         payment = new javax.swing.JButton();
         subject = new javax.swing.JButton();
         shedule = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        attendance = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         main = new javax.swing.JPanel();
@@ -41,17 +40,6 @@ public class Home extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 12));
-
-        jButton2.setBackground(new java.awt.Color(255, 204, 102));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Dashboard");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2);
 
         student.setBackground(new java.awt.Color(255, 204, 102));
         student.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -114,11 +102,16 @@ public class Home extends javax.swing.JFrame {
         jButton8.setText("Badge");
         jPanel1.add(jButton8);
 
-        jButton9.setBackground(new java.awt.Color(255, 204, 102));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(0, 0, 0));
-        jButton9.setText("Attendance");
-        jPanel1.add(jButton9);
+        attendance.setBackground(new java.awt.Color(255, 204, 102));
+        attendance.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        attendance.setForeground(new java.awt.Color(0, 0, 0));
+        attendance.setText("Attendance");
+        attendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                attendanceActionPerformed(evt);
+            }
+        });
+        jPanel1.add(attendance);
 
         jButton11.setBackground(new java.awt.Color(255, 204, 102));
         jButton11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -162,10 +155,6 @@ public class Home extends javax.swing.JFrame {
         buttonColorSetup(student);
     }//GEN-LAST:event_studentActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        loadPanel(new Dashboard());
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void teacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherActionPerformed
         loadPanel(new Teacher(this));
         buttonColorSetup(teacher);
@@ -184,6 +173,11 @@ public class Home extends javax.swing.JFrame {
         loadPanel(new Shedule());
         buttonColorSetup(shedule);
     }//GEN-LAST:event_sheduleActionPerformed
+
+    private void attendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attendanceActionPerformed
+        loadPanel(new Attendance());
+        buttonColorSetup(attendance);
+    }//GEN-LAST:event_attendanceActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -207,11 +201,10 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton attendance;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel main;
     private javax.swing.JButton payment;
@@ -236,7 +229,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void panalSetup() {
-        current = new Dashboard();
+        current = new Student(this);
         main.add(current, BorderLayout.CENTER);
     }
 
@@ -247,6 +240,7 @@ public class Home extends javax.swing.JFrame {
         payment.setBackground(new Color(255, 204, 102));
         subject.setBackground(new Color(255, 204, 102));
         shedule.setBackground(new Color(255, 204, 102));
+        attendance.setBackground(new Color(255, 204, 102));
 
         btn.setBackground(new Color(255, 102, 0));
     }
