@@ -6,6 +6,7 @@ import com.isuru20.GUI.panal.Shedule;
 import com.isuru20.GUI.panal.Student;
 import com.isuru20.GUI.panal.Subject;
 import com.isuru20.GUI.panal.Teacher;
+import com.isuru20.GUI.panal.Badge;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -31,7 +32,7 @@ public class Home extends javax.swing.JFrame {
         payment = new javax.swing.JButton();
         subject = new javax.swing.JButton();
         shedule = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        badge = new javax.swing.JButton();
         attendance = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
@@ -96,11 +97,16 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel1.add(shedule);
 
-        jButton8.setBackground(new java.awt.Color(255, 204, 102));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(0, 0, 0));
-        jButton8.setText("Badge");
-        jPanel1.add(jButton8);
+        badge.setBackground(new java.awt.Color(255, 204, 102));
+        badge.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        badge.setForeground(new java.awt.Color(0, 0, 0));
+        badge.setText("Badge");
+        badge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                badgeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(badge);
 
         attendance.setBackground(new java.awt.Color(255, 204, 102));
         attendance.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -179,6 +185,11 @@ public class Home extends javax.swing.JFrame {
         buttonColorSetup(attendance);
     }//GEN-LAST:event_attendanceActionPerformed
 
+    private void badgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_badgeActionPerformed
+       loadPanel(new Badge());
+        buttonColorSetup(badge);
+    }//GEN-LAST:event_badgeActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         IntelliJTheme.setup(Home.class.getResourceAsStream(
@@ -202,9 +213,9 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton attendance;
+    private javax.swing.JButton badge;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel main;
     private javax.swing.JButton payment;
@@ -241,6 +252,7 @@ public class Home extends javax.swing.JFrame {
         subject.setBackground(new Color(255, 204, 102));
         shedule.setBackground(new Color(255, 204, 102));
         attendance.setBackground(new Color(255, 204, 102));
+        badge.setBackground(new Color(255, 204, 102));
 
         btn.setBackground(new Color(255, 102, 0));
     }
