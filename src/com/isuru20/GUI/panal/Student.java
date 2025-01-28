@@ -119,9 +119,6 @@ public class Student extends javax.swing.JPanel {
         main.setBackground(new java.awt.Color(0, 0, 0));
         main.setLayout(new java.awt.CardLayout());
 
-        add.setBackground(new java.awt.Color(0, 0, 0));
-
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -210,8 +207,6 @@ public class Student extends javax.swing.JPanel {
                 .addGap(12, 12, 12))
         );
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
-
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
         jLabel10.setText("City");
@@ -282,7 +277,6 @@ public class Student extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
         jPanel4.setForeground(new java.awt.Color(255, 153, 0));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -467,10 +461,6 @@ public class Student extends javax.swing.JPanel {
 
         main.add(add, "card2");
 
-        view.setBackground(new java.awt.Color(0, 0, 0));
-
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 153, 0));
         jLabel17.setText("Student NIC ");
@@ -540,8 +530,6 @@ public class Student extends javax.swing.JPanel {
                             .addComponent(sortBadge))))
                 .addContainerGap())
         );
-
-        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
 
         studentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
