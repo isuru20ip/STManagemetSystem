@@ -3,12 +3,17 @@ package com.isuru20.GUI.panal;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.ItemLoader;
 import com.isuru20.modal.LogWritter;
+import com.isuru20.modal.Reporting;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 
 public class Payment extends javax.swing.JPanel {
 
@@ -456,6 +461,23 @@ public class Payment extends javax.swing.JPanel {
     }
 
     private void printBill() {
+        try {
+            HashMap<String, String> parm = new HashMap();
+            parm.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            parm.put("time", new SimpleDateFormat("hh:mm:ss").format(new Date()));
+            parm.put("name", this.name.getText());
+            parm.put("class", this.badge.getText());
+            parm.put("total", this.subjectFee.getText());
+            parm.put("paid", this.paidFees.getText());
+            parm.put("due", this.duefield.getText());
+            parm.put("pay", String.valueOf(pay));
 
+            boolean isPrint = new Reporting().printReport("src//com//isuru20//assets//payment.jasper", parm);
+            if (!isPrint) {
+            JOptionPane.showMessageDialog(this, "Printing Faid", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (JRException ex) {
+            LogWritter.logger.log(java.util.logging.Level.WARNING, "Student Profile Status Loading", ex);
+        }
     }
 }

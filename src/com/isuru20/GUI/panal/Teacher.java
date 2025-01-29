@@ -5,6 +5,7 @@ import com.isuru20.GUI.dialog.TeacherProfile;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.ItemLoader;
 import com.isuru20.modal.LogWritter;
+import com.isuru20.modal.Reporting;
 import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,6 +19,8 @@ import java.util.Date;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 
 public class Teacher extends javax.swing.JPanel {
 
@@ -519,6 +522,11 @@ public class Teacher extends javax.swing.JPanel {
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 0, 0));
         jButton6.setText("Print");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout viewLayout = new javax.swing.GroupLayout(view);
         view.setLayout(viewLayout);
@@ -608,6 +616,10 @@ public class Teacher extends javax.swing.JPanel {
     private void subjectItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_subjectItemStateChanged
         fillSubject();
     }//GEN-LAST:event_subjectItemStateChanged
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        printReports();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
@@ -902,6 +914,19 @@ public class Teacher extends javax.swing.JPanel {
         String nic = (String) studentTable.getValueAt(studentTable.getSelectedRow(), 0);
         new TeacherProfile(root, true, nic).setVisible(true);
         loadTeacher("");
+    }
+    
+        private void printReports() {
+        try {
+            HashMap<String, String> parm = new HashMap();
+            parm.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            parm.put("time", new SimpleDateFormat("hh:mm:ss").format(new Date()));
+
+            JRTableModelDataSource dataSource = new JRTableModelDataSource(studentTable.getModel());
+            new Reporting().printReport("src//com//isuru20//assets//teacher.jasper", parm, dataSource);
+        } catch (JRException ex) {
+            LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
+        }
     }
 
 }
