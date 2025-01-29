@@ -7,6 +7,7 @@ import com.isuru20.GUI.panal.Student;
 import com.isuru20.GUI.panal.Subject;
 import com.isuru20.GUI.panal.Teacher;
 import com.isuru20.GUI.panal.Badge;
+import com.isuru20.GUI.panal.Payment;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -168,6 +169,7 @@ public class Home extends javax.swing.JFrame {
 
     private void paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentActionPerformed
         buttonColorSetup(payment);
+        loadPanel(new Payment());
     }//GEN-LAST:event_paymentActionPerformed
 
     private void subjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subjectActionPerformed
