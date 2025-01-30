@@ -18,10 +18,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.data.JRCsvDataSource;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 
 public class Student extends javax.swing.JPanel {
@@ -1064,7 +1061,7 @@ public class Student extends javax.swing.JPanel {
             parm.put("time", new SimpleDateFormat("hh:mm:ss").format(new Date()));
 
             JRTableModelDataSource dataSource = new JRTableModelDataSource(studentTable.getModel());
-            new Reporting().printReport("src//com//isuru20//assets//student.jasper", parm, dataSource);
+            new Reporting().printReport("C:/Users/User/Documents/AppData/student.jasper", parm, dataSource);
         } catch (JRException ex) {
             LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
         }

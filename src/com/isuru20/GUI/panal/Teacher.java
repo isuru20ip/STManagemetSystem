@@ -923,7 +923,7 @@ public class Teacher extends javax.swing.JPanel {
             parm.put("time", new SimpleDateFormat("hh:mm:ss").format(new Date()));
 
             JRTableModelDataSource dataSource = new JRTableModelDataSource(studentTable.getModel());
-            new Reporting().printReport("src//com//isuru20//assets//teacher.jasper", parm, dataSource);
+            new Reporting().printReport("C:/Users/User/Documents/AppData/teacher.jasper", parm, dataSource);
         } catch (JRException ex) {
             LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
         }

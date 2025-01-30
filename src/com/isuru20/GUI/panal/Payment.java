@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 
@@ -472,7 +470,7 @@ public class Payment extends javax.swing.JPanel {
             parm.put("due", this.duefield.getText());
             parm.put("pay", String.valueOf(pay));
 
-            boolean isPrint = new Reporting().printReport("src//com//isuru20//assets//payment.jasper", parm);
+            boolean isPrint = new Reporting().printReport("C:/Users/User/Documents/AppData/payment.jasper", parm);
             if (!isPrint) {
             JOptionPane.showMessageDialog(this, "Printing Faid", "Error", JOptionPane.ERROR_MESSAGE);
             }

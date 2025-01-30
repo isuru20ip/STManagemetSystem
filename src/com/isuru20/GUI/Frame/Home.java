@@ -1,6 +1,5 @@
 package com.isuru20.GUI.Frame;
 
-import com.formdev.flatlaf.IntelliJTheme;
 import com.isuru20.GUI.panal.Attendance;
 import com.isuru20.GUI.panal.Shedule;
 import com.isuru20.GUI.panal.Student;
@@ -35,7 +34,6 @@ public class Home extends javax.swing.JFrame {
         shedule = new javax.swing.JButton();
         badge = new javax.swing.JButton();
         attendance = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         main = new javax.swing.JPanel();
 
@@ -120,16 +118,15 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel1.add(attendance);
 
-        jButton11.setBackground(new java.awt.Color(255, 204, 102));
-        jButton11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(0, 0, 0));
-        jButton11.setText("Admin");
-        jPanel1.add(jButton11);
-
         jButton12.setBackground(new java.awt.Color(255, 153, 153));
         jButton12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton12.setForeground(new java.awt.Color(0, 0, 0));
         jButton12.setText("Logout");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton12);
 
         main.setLayout(new java.awt.BorderLayout());
@@ -188,22 +185,13 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_attendanceActionPerformed
 
     private void badgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_badgeActionPerformed
-       loadPanel(new Badge());
+        loadPanel(new Badge());
         buttonColorSetup(badge);
     }//GEN-LAST:event_badgeActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        IntelliJTheme.setup(Home.class.getResourceAsStream(
-                "/com/isuru20/assets/theme.json"));
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Home().setVisible(true);
-            }
-        });
-    }
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        logOut();
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     private void frameSetup() {
         this.setTitle("VT School System");
@@ -216,7 +204,6 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton attendance;
     private javax.swing.JButton badge;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel main;
@@ -259,4 +246,9 @@ public class Home extends javax.swing.JFrame {
         btn.setBackground(new Color(255, 102, 0));
     }
 
+    private void logOut() {
+        this.main.removeAll();
+        this.dispose();
+        new SignIn().setVisible(true);
+    }
 }
