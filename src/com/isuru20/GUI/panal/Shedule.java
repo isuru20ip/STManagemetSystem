@@ -207,7 +207,7 @@ public class Shedule extends javax.swing.JPanel {
                     "SELECT `school_shedule`.`id`, `date`,`name` "
                             + "FROM `school_shedule` "
                             + "INNER JOIN `shedule_status` "
-                            + "ON `shedule_status`.`id` = `school_shedule`.`shedule_status_id`", colums);
+                            + "ON `shedule_status`.`id` = `school_shedule`.`shedule_status_id` ORDER BY `date` DESC", colums);
         } catch (Exception ex) {
             LogWritter.logger.log(Level.WARNING, "Shedule Panal Status Loading", ex);
         }

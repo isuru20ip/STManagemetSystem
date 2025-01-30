@@ -1,6 +1,5 @@
 package com.isuru20.GUI.Frame;
 
-import com.formdev.flatlaf.IntelliJTheme;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.LogWritter;
