@@ -14,12 +14,6 @@ import java.sql.ResultSet;
 
 public class Subject extends javax.swing.JPanel {
 
-    public Subject(JFrame parent) {
-        initComponents();
-        loadSubject();
-        loadDuration();
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -269,9 +263,16 @@ public class Subject extends javax.swing.JPanel {
     private javax.swing.JList<String> teacherList;
     // End of variables declaration//GEN-END:variables
 
-    HashMap<String, String> subjectMap = new HashMap<>();
-    HashMap<String, String> teacherMap = new HashMap<>();
-    HashMap<String, String> durationMap = new HashMap<>();
+    // constructor
+    public Subject(JFrame parent) {
+        initComponents();
+        loadSubject();
+        loadDuration();
+    }
+
+    HashMap<String, String> subjectMap = new HashMap<>(); // store city id <k: city name, V: city Id>
+    HashMap<String, String> teacherMap = new HashMap<>(); // store status id <k: status name, V: status Id>
+    HashMap<String, String> durationMap = new HashMap<>(); // store duration id <k: duration name, V: duration Id>
 
     // load subject into list
     private void loadSubject() {
@@ -334,34 +335,48 @@ public class Subject extends javax.swing.JPanel {
         }
     }
 
+    // add new teacher into a subject
     private void setTeacher() {
         String subject = this.subjectName.getText();
         String teacher = this.teacherId.getText();
 
         if (subject.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Select a subject on the list ", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "Select a subject on the list ", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
         } else if (teacher.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NIC is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "NIC is required", "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             String sid = subjectMap.get(subject);
 
             try {
-                boolean isTeacher = DB.search("SELECT `nic` FROM `teacher` WHERE `nic` = '" + teacher + "'").next();
+                boolean isTeacher = DB.search("SELECT `nic` FROM `teacher` "
+                        + "WHERE `nic` = '" + teacher + "'").next();
                 System.out.println(isTeacher);
                 if (isTeacher) {
-                    ResultSet rs = DB.search(" SELECT COUNT(`teacher_nic`) FROM `subject_has_teacher` WHERE `teacher_nic` = '"+teacher+"' ");
+                    ResultSet rs = DB.search(" SELECT COUNT(`teacher_nic`) "
+                            + "FROM `subject_has_teacher` WHERE `teacher_nic` = '" + teacher + "' ");
                     rs.next();
                     if (Integer.parseInt(rs.getString(1)) <= 1) {
-                        DB.IUD("INSERT INTO `subject_has_teacher` (`subject_id`, `teacher_nic`) VALUES ('" + sid + "', '" + teacher + "');");
-                        JOptionPane.showMessageDialog(this, "New Teacher is added to the Subject", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        DB.IUD("INSERT INTO `subject_has_teacher`"
+                                + " (`subject_id`, `teacher_nic`) "
+                                + "VALUES ('" + sid + "', '" + teacher + "');");
+                        JOptionPane.showMessageDialog(this, 
+                                "New Teacher is added to the Subject",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
                         loadSubject();
                         this.teacherId.setText("");
                         this.subjectName.setText("");
                     } else {
-                        JOptionPane.showMessageDialog(this, "A Teacher Can have tow Subject only", "Warning", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, 
+                                "A Teacher Can have tow Subject only", 
+                                "Warning", JOptionPane.WARNING_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Invalid NIC number", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, 
+                            "Invalid NIC number", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             } catch (HeadlessException | IOException | ClassNotFoundException | NumberFormatException | SQLException ex) {
                 LogWritter.logger.log(Level.WARNING, "Subject Panal add Teacher Loading", ex);

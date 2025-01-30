@@ -14,12 +14,6 @@ import javax.swing.JOptionPane;
 
 public class Shedule extends javax.swing.JPanel {
 
-    public Shedule() {
-        initComponents();
-        loadStets();
-        loadShedule();
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,11 +63,6 @@ public class Shedule extends javax.swing.JPanel {
         jLabel4.setText("Status");
 
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusActionPerformed(evt);
-            }
-        });
 
         jButton1.setBackground(new java.awt.Color(255, 153, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -173,10 +162,6 @@ public class Shedule extends javax.swing.JPanel {
     );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statusActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         createNewShedule();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -193,29 +178,42 @@ public class Shedule extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> status;
     // End of variables declaration//GEN-END:variables
 
+    // costructor
+    public Shedule() {
+        initComponents();
+        loadStets();
+        loadShedule();
+    }
+
+    // store status id <k: status name, V: statusId>
     private HashMap<String, String> statusMap;
 
     private void loadStets() {
         try {
             // ResultSet rs =  DB.IUD("");
             String[] manualValues = {"Select Status"};
-            statusMap = ItemLoader.getItemLoader().loadComboPlus(status, "SELECT `id`,`name` FROM `shedule_status` ", manualValues);
+            statusMap = ItemLoader.getItemLoader().loadComboPlus(status, 
+                    "SELECT `id`,`name` FROM `shedule_status` ", manualValues);
         } catch (Exception ex) {
             LogWritter.logger.log(Level.WARNING, "Shedule Panal Status Loading", ex);
-
         }
     }
 
+    // load shedule into jtable
     private void loadShedule() {
         try {
             String[] colums = {"id", "date", "name"};
-            ItemLoader.getItemLoader().loadTable(jTable2, "SELECT `school_shedule`.`id`, `date`,`name` FROM `school_shedule` INNER JOIN `shedule_status` ON `shedule_status`.`id` = `school_shedule`.`shedule_status_id`", colums);
+            ItemLoader.getItemLoader().loadTable(jTable2, 
+                    "SELECT `school_shedule`.`id`, `date`,`name` "
+                            + "FROM `school_shedule` "
+                            + "INNER JOIN `shedule_status` "
+                            + "ON `shedule_status`.`id` = `school_shedule`.`shedule_status_id`", colums);
         } catch (Exception ex) {
             LogWritter.logger.log(Level.WARNING, "Shedule Panal Status Loading", ex);
-
         }
     }
 
+    //make new Shedule
     private void createNewShedule() {
         Calendar selectedDate = date.getSelectedDate();
         String date = null;
@@ -224,7 +222,9 @@ public class Shedule extends javax.swing.JPanel {
             Date getDate = selectedDate.getTime();
 
             if (getDate.before(today)) {
-                JOptionPane.showMessageDialog(this, "Please select a Valid Date", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, 
+                        "Please select a Valid Date", 
+                        "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             } else {
                 date = new SimpleDateFormat("yyyy-MM-dd").format(getDate);
@@ -234,22 +234,26 @@ public class Shedule extends javax.swing.JPanel {
         String status = String.valueOf(this.status.getSelectedItem());
 
         if (date.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select a Date", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a Date", 
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (status.isEmpty() || status.equals("Select Status")) {
-            JOptionPane.showMessageDialog(this, "Please select a Status", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a Status", 
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 boolean isShedule = DB.search("SELECT `id` FROM `school_shedule` WHERE `date` = '" + date + "'").next();
 
                 if (isShedule) {
-                    JOptionPane.showMessageDialog(this, "This Date Alredy Sheduled", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This Date Alredy Sheduled", 
+                            "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    DB.IUD("INSERT INTO `school_shedule` (`date`, `shedule_status_id`) VALUES ('" + date + "', '" + this.statusMap.get(status) + "');");
-                    JOptionPane.showMessageDialog(this, "Day Shedule Success", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    DB.IUD("INSERT INTO `school_shedule` (`date`, `shedule_status_id`)"
+                            + " VALUES ('" + date + "', '" + this.statusMap.get(status) + "');");
+                    JOptionPane.showMessageDialog(this, "Day Shedule Success", 
+                            "Success", JOptionPane.INFORMATION_MESSAGE);
                     this.status.setSelectedIndex(0);
                     loadShedule();
                 }
-
             } catch (ClassNotFoundException | SQLException | IOException ex) {
                 LogWritter.logger.log(Level.WARNING, "Shedule Panal New Shedule", ex);
             }

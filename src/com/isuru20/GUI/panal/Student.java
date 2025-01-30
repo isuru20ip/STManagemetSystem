@@ -18,22 +18,11 @@ import java.util.Date;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 
 public class Student extends javax.swing.JPanel {
-
-    private JFrame root;
-
-    public Student(JFrame parent) {
-        initComponents();
-        firstLoad();
-        loadCity();
-        loadSubjects();
-        loadStudents("");
-        loadBadge();
-        root = parent;
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -644,16 +633,12 @@ public class Student extends javax.swing.JPanel {
     // Student Panal Register Student Menu Button
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         btnColorSetup(jButton1);
-        main.removeAll();
-        main.add(add);
-        SwingUtilities.updateComponentTreeUI(main);
+        panalLoader(add);
     }//GEN-LAST:event_jButton1ActionPerformed
     // Student Panal View Student Menu Button
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         btnColorSetup(jButton2);
-        main.removeAll();
-        main.add(view);
-        SwingUtilities.updateComponentTreeUI(main);
+        panalLoader(view);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // the mectho fire at the selecting a subject
@@ -749,16 +734,25 @@ public class Student extends javax.swing.JPanel {
     private javax.swing.JPanel view;
     // End of variables declaration//GEN-END:variables
 
-    private HashMap<String, String> cityMap;
-    private HashMap<String, String> subjectyMap;
+    // constructore
+    public Student(JFrame parent) {
+        initComponents();
+        firstLoad();
+        loadCity();
+        loadSubjects();
+        loadStudents("");
+        loadBadge();
+        root = parent;
+    }
+
+    private final JFrame root; // store root object
+    private HashMap<String, String> cityMap; // store city id <k: city name, V: cityId>
+    private HashMap<String, String> subjectyMap; // store status id <k: status name, V: statusId>
 
     // colorUp the Clicked Button
     private void btnColorSetup(JButton btn) {
         jButton1.setBackground(Color.lightGray);
         jButton2.setBackground(Color.lightGray);
-//        jButton1.setForeground(null);
-//        jButton2.setBackground(null);
-
         btn.setBackground(Color.orange);
         SwingUtilities.updateComponentTreeUI(btnPanal);
     }
@@ -814,7 +808,9 @@ public class Student extends javax.swing.JPanel {
         String subjectName = String.valueOf(subject.getSelectedItem());
         if (!subjectName.equals("Select Subject")) {
             String[] value = {"Select Badge"};
-            String qurty = "SELECT `badge`.id FROM `badge` WHERE `subject_id` = '" + this.subjectyMap.get(subjectName) + "' AND `badge`.`badge_status_id` != '1'";
+            String qurty = "SELECT `badge`.id FROM `badge` "
+                    + "WHERE `subject_id` = '" + this.subjectyMap.get(subjectName) + "' "
+                    + "AND `badge`.`badge_status_id` != '1'";
             try {
                 ItemLoader.getItemLoader().loadCombo(badge, qurty, value);
             } catch (ClassNotFoundException | SQLException | IOException ex) {
@@ -973,7 +969,7 @@ public class Student extends javax.swing.JPanel {
         clearBadge();
     }
 
-    // <><>--------------------------View Panale--------------------------<><>
+    // load Badge
     private void loadBadge() {
 
         String[] value = {"Select Badge"};
@@ -1042,6 +1038,7 @@ public class Student extends javax.swing.JPanel {
 
     }
 
+    // clear short data
     private void clearSort() {
         this.sortNIC.setText("");
         this.sortBadge.setSelectedIndex(0);
@@ -1049,11 +1046,13 @@ public class Student extends javax.swing.JPanel {
         loadStudents("");
     }
 
+    // one student profile jDialog
     private void updateStudent() {
         String nic = (String) studentTable.getValueAt(studentTable.getSelectedRow(), 0);
         new StudentProfile(root, true, nic).setVisible(true);
     }
 
+    // print report
     private void printReports() {
         try {
             HashMap<String, String> parm = new HashMap();
@@ -1065,5 +1064,12 @@ public class Student extends javax.swing.JPanel {
         } catch (JRException ex) {
             LogWritter.logger.log(Level.WARNING, "Student Panal badge Loading", ex);
         }
+    }
+
+    // load Teacher and Stedent panal onlick
+    private void panalLoader(JPanel panel) {
+        main.removeAll();
+        main.add(panel);
+        SwingUtilities.updateComponentTreeUI(main);
     }
 }

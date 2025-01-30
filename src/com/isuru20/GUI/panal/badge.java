@@ -12,15 +12,7 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class Badge extends javax.swing.JPanel {
-    
-    public Badge() {
-        initComponents();
-        loadbadge("");
-        loadState();
-        loadSubjects();
-        badgeIDWraper();
-    }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -369,10 +361,20 @@ public class Badge extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> subject;
     // End of variables declaration//GEN-END:variables
 
-    HashMap<String, String> subjectyMap = new HashMap<>();
-    HashMap<String, String> stetusMap = new HashMap<>();
-    private String currentSt;
-    
+    // constructor
+    public Badge() {
+        initComponents();
+        loadbadge("");
+        loadState();
+        loadSubjects();
+        badgeIDWraper();
+    }
+
+    HashMap<String, String> subjectyMap = new HashMap<>(); // store city id <k: city name, V: cityId>
+    HashMap<String, String> stetusMap = new HashMap<>(); // store status id <k: status name, V: statusId>
+    private String currentSt; // store current Status
+
+    // load badges into jTable
     private void loadbadge(String condition) {
         try {
             String[] colums = {"id", "date", "subject", "status"};
@@ -382,10 +384,11 @@ public class Badge extends javax.swing.JPanel {
                     + "INNER JOIN `badge_status` ON `badge_status`.`id` = `badge`.`badge_status_id` " + condition;
             ItemLoader.getItemLoader().loadTable(jTable1, query, colums);
         } catch (IOException | ClassNotFoundException | SQLException ex) {
-            LogWritter.logger.log(java.util.logging.Level.WARNING, "badge panal badge loade", ex);
+            LogWritter.logger.log(java.util.logging.Level.WARNING, "badge panal badge load", ex);
         }
     }
-    
+
+    // load subjects
     private void loadSubjects() {
         String[] value = {"Select Subject"};
         String qurty = "SELECT `id`,`name` FROM `subject` ORDER BY `name` ASC ";
@@ -395,7 +398,8 @@ public class Badge extends javax.swing.JPanel {
             LogWritter.logger.log(java.util.logging.Level.WARNING, "badge panal badge loade", ex);
         }
     }
-    
+
+    // load status
     private void loadState() {
         String[] value = {"Select Status"};
         String qurty = "SELECT `id`,`name` FROM `badge_status`";
@@ -404,10 +408,12 @@ public class Badge extends javax.swing.JPanel {
             stetusMap = ItemLoader.getItemLoader().loadComboPlus(status, qurty, value);
             ItemLoader.getItemLoader().loadCombo(jComboBox3, qurty2, value);
         } catch (ClassNotFoundException | SQLException | IOException ex) {
-            LogWritter.logger.log(java.util.logging.Level.WARNING, "Student Profile Status Loading", ex);
+            LogWritter.logger.log(java.util.logging.Level.WARNING, 
+                    "Badge Panal Status Loading", ex);
         }
     }
-    
+
+    // load clicked table row's data into txt field
     private void loadBadeg() {
         elementLocker(true);
         try {
@@ -418,23 +424,21 @@ public class Badge extends javax.swing.JPanel {
             status.setSelectedItem(jTable1.getValueAt(row, 3));
             currentSt = (String) jTable1.getValueAt(row, 3);
         } catch (ParseException ex) {
-            LogWritter.logger.log(java.util.logging.Level.WARNING, "Student Profile Status Loading", ex);
+            LogWritter.logger.log(java.util.logging.Level.WARNING, 
+                    "Badge Panal Badge Loading", ex);
         }
-        
     }
-    
+
+    // Genarate Dynamic Badge Id Accoding to Subject and Yeat/Month
     private void badgeIDWraper() {
-        
         String subject = String.valueOf(this.subject.getSelectedItem());
         Date selectDate = date.getDate();
-        
         if (selectDate == null) {
             badgeId.setText("");
             return;
         } else {
             badgeId.setText(new SimpleDateFormat("yyyy/MM/").format(selectDate));
         }
-        
         if (subject.equals("Select Subject")) {
             badgeId.setText("");
             return;
@@ -442,38 +446,55 @@ public class Badge extends javax.swing.JPanel {
             badgeId.setText(badgeId.getText() + subject.substring(0, 4).toUpperCase());
         }
     }
-    
+
+    // validate and register new badge
     private void addBadge() {
         String id = this.badgeId.getText();
         String subject = (String) this.subject.getSelectedItem();
         Date date = this.date.getDate();
         String status = (String) this.status.getSelectedItem();
-        
+
         if (subject.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Subject is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "Subject is required", "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
         } else if (date == null) {
-            JOptionPane.showMessageDialog(this, "Date is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "Date is required", "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
         } else if (!new Date().before(date)) {
-            JOptionPane.showMessageDialog(this, "Invalida Date", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "Invalida Date", "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
         } else if (status.equals("Select Status") || status.equals("Completed")) {
-            JOptionPane.showMessageDialog(this, "Invalida Status", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "Invalida Status", "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                boolean isID = DB.search("SELECT `id` FROM `badge` WHERE `id` = '" + id + "' ").next();
+                boolean isID = DB.search("SELECT `id` FROM `badge` "
+                        + "WHERE `id` = '" + id + "' ").next();
                 if (isID) {
-                    JOptionPane.showMessageDialog(this, "Badge Exsist", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, 
+                            "Badge Exsist", "Warning", 
+                            JOptionPane.WARNING_MESSAGE);
                 } else {
                     DB.IUD("INSERT INTO `badge` (`id`, `date`, `subject_id`, `badge_status_id`) "
-                            + "VALUES ('" + id + "', '" + new SimpleDateFormat("yyyy-MM-dd").format(date) + "', '" + subjectyMap.get(subject) + "', '" + stetusMap.get(status) + "');");
-                    JOptionPane.showMessageDialog(this, "Add new Badge", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            + "VALUES ('" + id + "', '" + new SimpleDateFormat("yyyy-MM-dd").format(date) + "',"
+                                    + " '" + subjectyMap.get(subject) + "', '" + stetusMap.get(status) + "');");
+                    JOptionPane.showMessageDialog(this, 
+                            "Add new Badge", "Success", 
+                            JOptionPane.INFORMATION_MESSAGE);
                     clareAll();
                 }
             } catch (IOException | ClassNotFoundException | SQLException ex) {
-                LogWritter.logger.log(java.util.logging.Level.WARNING, "Student Profile Status Loading", ex);
+                LogWritter.logger.log(java.util.logging.Level.WARNING,
+                        "Badeg Panal Add new Badge", ex);
             }
         }
     }
-    
+
+    // cean All fields
     private void clareAll() {
         this.badgeId.setText("");
         this.subject.setSelectedIndex(0);
@@ -484,41 +505,51 @@ public class Badge extends javax.swing.JPanel {
         loadbadge("");
         elementLocker(false);
     }
-    
+
+    // update status 
     private void updateStus() {
         String id = this.badgeId.getText();
         String status = (String) this.status.getSelectedItem();
-        
+
         if (currentSt.equals("Upcoming")) {
             if (!status.equals("On Going")) {
-                JOptionPane.showMessageDialog(this, "Invalida Status", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, 
+                        "Invalida Status", "Warning", 
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }
-        
+
         if (currentSt.equals("On Going")) {
             if (!status.equals("Completed")) {
-                JOptionPane.showMessageDialog(this, "Invalida Status", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, 
+                        "Invalida Status", "Warning", 
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }
-        
+
         if (currentSt.equals("Completed")) {
-            JOptionPane.showMessageDialog(this, "Invalida Status", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "Invalida Status", "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         try {
             DB.IUD("UPDATE `badge` SET `badge_status_id`= '" + stetusMap.get(status) + "' WHERE `id`='" + id + "';");
-            JOptionPane.showMessageDialog(this, "Badge Updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    "Badge Updated", "Success", 
+                    JOptionPane.INFORMATION_MESSAGE);
             clareAll();
             elementLocker(false);
         } catch (IOException | ClassNotFoundException | SQLException ex) {
-            LogWritter.logger.log(java.util.logging.Level.WARNING, "Student Profile Status Loading", ex);
+            LogWritter.logger.log(java.util.logging.Level.WARNING, "Badge Panal Update Badge Status", ex);
         }
-        
+
     }
-    
+
+    // control button access for add and update proccess
     private void elementLocker(boolean lock) {
         if (lock) {
             this.badgeId.setEnabled(!lock);
@@ -530,13 +561,14 @@ public class Badge extends javax.swing.JPanel {
             this.date.setEnabled(!lock);
         }
     }
-    
+
+    // shortout and load data into table
     private void sortBadge() {
         String id = jTextField2.getText();
         String status = (String) jComboBox3.getSelectedItem();
-        
+
         String query = "";
-        
+
         if (!id.isEmpty() && status.equals("Select Status")) {
             query = "WHERE `badge`.`id` LIKE '%" + id + "'%";
         } else if (id.isEmpty() && !status.equals("Select Status")) {
@@ -544,8 +576,8 @@ public class Badge extends javax.swing.JPanel {
         } else if (!id.isEmpty() && !status.equals("Select Status")) {
             query = "WHERE `badge`.`id` = '" + id + "' AND `badge`.`badge_status_id` = '" + stetusMap.get(status) + "' ";
         }
-        
+
         loadbadge(query);
     }
-    
+
 }

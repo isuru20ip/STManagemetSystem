@@ -1,6 +1,5 @@
 package com.isuru20.GUI.panal;
 
-import com.isuru20.GUI.dialog.StudentProfile;
 import com.isuru20.GUI.dialog.TeacherProfile;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.ItemLoader;
@@ -16,24 +15,13 @@ import javax.swing.SwingUtilities;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 
 public class Teacher extends javax.swing.JPanel {
-
-    private JFrame root;
-
-    public Teacher(JFrame parent) {
-        initComponents();
-        firstLoad();
-        loadCity();
-        loadSubjects();
-        loadTeacher("");
-        root = parent;
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -576,19 +564,12 @@ public class Teacher extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    // Student Panal Register Student Menu Button
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        btnColorSetup(jButton1);
-        main.removeAll();
-        main.add(add);
-        SwingUtilities.updateComponentTreeUI(main);
+        panalLoader(add);
     }//GEN-LAST:event_jButton1ActionPerformed
-    // Student Panal View Student Menu Button
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        btnColorSetup(jButton2);
-        main.removeAll();
-        main.add(view);
-        SwingUtilities.updateComponentTreeUI(main);
+        panalLoader(view);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -609,7 +590,7 @@ public class Teacher extends javax.swing.JPanel {
 
     private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked
         if (evt.getClickCount() == 2) {
-           updateTeacher();
+            updateTeacher();
         }
     }//GEN-LAST:event_studentTableMouseClicked
 
@@ -671,16 +652,24 @@ public class Teacher extends javax.swing.JPanel {
     private javax.swing.JPanel view;
     // End of variables declaration//GEN-END:variables
 
-    private HashMap<String, String> cityMap;
-    private HashMap<String, String> subjectyMap;
+    // constructor
+    public Teacher(JFrame parent) {
+        initComponents();
+        firstLoad();
+        loadCity();
+        loadSubjects();
+        loadTeacher("");
+        root = parent;
+    }
+    
+    private JFrame root; // store root object
+    private HashMap<String, String> cityMap;  // store city id <k: city name, V: cityId>
+    private HashMap<String, String> subjectyMap; // store status id <k: status name, V: statusId>
 
     // colorUp the Clicked Button
     private void btnColorSetup(JButton btn) {
         jButton1.setBackground(Color.lightGray);
         jButton2.setBackground(Color.lightGray);
-//        jButton1.setForeground(null);
-//        jButton2.setBackground(null);
-
         btn.setBackground(Color.orange);
         SwingUtilities.updateComponentTreeUI(btnPanal);
     }
@@ -700,7 +689,7 @@ public class Teacher extends javax.swing.JPanel {
         try {
             cityMap = ItemLoader.getItemLoader().loadComboPlus(city, qurty, value);
         } catch (ClassNotFoundException | SQLException | IOException ex) {
-            LogWritter.logger.log(Level.WARNING, "Student Panal City Loading", ex);
+            LogWritter.logger.log(Level.WARNING, "Teacher Panal City Loading", ex);
         }
     }
 
@@ -713,11 +702,11 @@ public class Teacher extends javax.swing.JPanel {
             subjectyMap = ItemLoader.getItemLoader().loadComboPlus(subject, qurty, value);
             ItemLoader.getItemLoader().loadCombo(sortSubject, qurty1, value);
         } catch (ClassNotFoundException | SQLException | IOException ex) {
-            LogWritter.logger.log(Level.WARNING, "Student Panal Subject Loading", ex);
+            LogWritter.logger.log(Level.WARNING, "Teacher Panal Subject Loading", ex);
         }
     }
 
-    // Load Students Into jTable
+    // Load Teacher Into jTable
     private void loadTeacher(String condition) {
         try {
             String query = "SELECT `teacher`.`nic`,CONCAT(`teacher`.`fname`, ' ', `teacher`.`lname`)"
@@ -726,12 +715,12 @@ public class Teacher extends javax.swing.JPanel {
                     + "FROM `teacher` "
                     + "INNER JOIN `subject_has_teacher` ON `subject_has_teacher`.`teacher_nic` = `teacher`.`nic` "
                     + "INNER JOIN `subject` ON `subject`.`id` = `subject_has_teacher`.`subject_id` "
-                    + "INNER JOIN `teacher_status` ON `teacher_status`.`id` = `teacher`.`teacher_status_id` "+ condition
+                    + "INNER JOIN `teacher_status` ON `teacher_status`.`id` = `teacher`.`teacher_status_id` " + condition
                     + " GROUP BY `teacher`.`nic`, `name`, `status`;";
             String[] colums = {"nic", "name", "subjects", "status"};
             ItemLoader.getItemLoader().loadTable(studentTable, query, colums);
         } catch (IOException | ClassNotFoundException | SQLException ex) {
-            LogWritter.logger.log(Level.WARNING, "Student Panal Student Loading", ex);
+            LogWritter.logger.log(Level.WARNING, "Teacher Panal Student Loading", ex);
         }
     }
 
@@ -753,72 +742,94 @@ public class Teacher extends javax.swing.JPanel {
 
         // NIC validation
         if (NIC.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NIC is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "NIC is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (NIC.length() != 12 && NIC.length() != 10) {
-            JOptionPane.showMessageDialog(this, "Invalid NIC Number", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid NIC Number",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // First name validation
         else if (fName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "First Name is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "First Name is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (!fName.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "First Name can only contain letters", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "First Name can only contain letters",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // Last name validation
         else if (lName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Last Name is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Last Name is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (!lName.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Last Name can only contain letters", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Last Name can only contain letters",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // Phone number validation
         else if (phone.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Phone number is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Phone number is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (!phone.matches("07[01245678][0-9]{7}")) {
-            JOptionPane.showMessageDialog(this, "Invalid Phone Number", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid Phone Number",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // Age validation
         else if (dob == null) {
-            JOptionPane.showMessageDialog(this, "Date of Birth is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Date of Birth is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // Address line 1 validation
         else if (line01.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Address Line 1 is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Address Line 1 is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // Address line 2 validation
         else if (line01.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Address Line 2 is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Address Line 2 is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // City validation
         else if (city.equals("Select City")) {
-            JOptionPane.showMessageDialog(this, "Please select a city", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a city",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         }// validate subject
         else if (sub1.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Subject is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Subject is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
 
             try {
 
-                boolean isTeacher = DB.search("SELECT `nic` FROM `teacher` WHERE `nic` = '" + NIC + "'").next();
+                boolean isTeacher = DB.search("SELECT `nic` FROM `teacher` "
+                        + "WHERE `nic` = '" + NIC + "'").next();
 
                 if (isTeacher) {
-                    JOptionPane.showMessageDialog(this, "The Teacher has Alredy been Registerd", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The Teacher has Alredy been Registerd",
+                            "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                DB.IUD("INSERT INTO `address` (`line01`, `line02`, `city_id`) VALUES ('" + line01 + "', '" + line02 + "', '" + cityMap.get(city) + "');");
+                DB.IUD("INSERT INTO `address` (`line01`, `line02`, `city_id`) "
+                        + "VALUES ('" + line01 + "', '" + line02 + "', '" + cityMap.get(city) + "');");
                 ResultSet rs = DB.search("SELECT LAST_INSERT_ID() AS last_id");
                 rs.next();
-                DB.IUD("INSERT INTO `teacher` (`nic`, `fname`, `lname`, `dob`, `mobile`, `jdate`, `teacher_status_id`, `address_id`) VALUES "
-                        + "('" + NIC + "', '" + fName + "', '" + lName + "', '" + sdf.format(dob) + "', '" + phone + "', '" + sdf.format(new Date()) + "', 1, '" + rs.getString(1) + "');");
-                JOptionPane.showMessageDialog(this, "Teacher registration successful.", "success", JOptionPane.INFORMATION_MESSAGE);
+                DB.IUD("INSERT INTO `teacher` (`nic`, `fname`, `lname`, `dob`,"
+                        + " `mobile`, `jdate`, `teacher_status_id`, `address_id`) VALUES "
+                        + "('" + NIC + "', '" + fName + "', '" + lName + "',"
+                        + " '" + sdf.format(dob) + "', '" + phone + "', '" + sdf.format(new Date()) + "', 1, '" + rs.getString(1) + "');");
+                JOptionPane.showMessageDialog(this,
+                        "Teacher registration successful.", "success", JOptionPane.INFORMATION_MESSAGE);
 
-                DB.IUD("INSERT INTO `subject_has_teacher` (`subject_id`, `teacher_nic`) VALUES ( '" + subjectyMap.get(sub1) + "', '" + NIC + "');");
+                DB.IUD("INSERT INTO `subject_has_teacher` (`subject_id`, `teacher_nic`) "
+                        + "VALUES ( '" + subjectyMap.get(sub1) + "', '" + NIC + "');");
 
                 if (!sub2.isEmpty()) {
-                    DB.IUD("INSERT INTO `subject_has_teacher` (`subject_id`, `teacher_nic`) VALUES ( '" + subjectyMap.get(sub2) + "', '" + NIC + "');");
+                    DB.IUD("INSERT INTO `subject_has_teacher` (`subject_id`, `teacher_nic`)"
+                            + " VALUES ( '" + subjectyMap.get(sub2) + "', '" + NIC + "');");
                 }
                 loadTeacher("");
                 clearAll();
             } catch (ClassNotFoundException | SQLException | IOException ex) {
-                Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+                LogWritter.logger.log(Level.WARNING, "Teacher Panal Add new Teacher", ex);
             }
 
         }
 
     }
 
+    // add teacher's subjects
     private void fillSubject() {
         String subject = String.valueOf(this.subject.getSelectedItem());
 
@@ -846,10 +857,8 @@ public class Teacher extends javax.swing.JPanel {
         this.subject02.setText("");
     }
 
-    // <><>--------------------------View Panale--------------------------<><>
-    // sort Students
+    // sort teacher
     private void sortTeacher() {
-
         String nic = this.sortNIC.getText();
         String subject = String.valueOf(this.sortSubject.getSelectedItem());
         String phone = this.sortMobile.getText();
@@ -903,6 +912,7 @@ public class Teacher extends javax.swing.JPanel {
 
     }
 
+    // clean sort data
     private void clearSort() {
         this.sortNIC.setText("");
         this.sortSubject.setSelectedIndex(0);
@@ -910,13 +920,15 @@ public class Teacher extends javax.swing.JPanel {
         loadTeacher("");
     }
 
+    // open teacher profile
     private void updateTeacher() {
         String nic = (String) studentTable.getValueAt(studentTable.getSelectedRow(), 0);
         new TeacherProfile(root, true, nic).setVisible(true);
         loadTeacher("");
     }
-    
-        private void printReports() {
+
+    // print Reports
+    private void printReports() {
         try {
             HashMap<String, String> parm = new HashMap();
             parm.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
@@ -929,4 +941,10 @@ public class Teacher extends javax.swing.JPanel {
         }
     }
 
+    // load Teacher and Stedent panal onlick
+    private void panalLoader(JPanel panel) {
+        main.removeAll();
+        main.add(panel);
+        SwingUtilities.updateComponentTreeUI(main);
+    }
 }
