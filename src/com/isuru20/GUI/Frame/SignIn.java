@@ -1,6 +1,7 @@
 package com.isuru20.GUI.Frame;
 
 import com.formdev.flatlaf.IntelliJTheme;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.isuru20.modal.DB;
 import com.isuru20.modal.LogWritter;
 import java.io.IOException;
@@ -41,6 +42,9 @@ public class SignIn extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("User Name");
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 153));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,8 +125,10 @@ public class SignIn extends javax.swing.JFrame {
 
     // main method
     public static void main(String args[]) {
-        IntelliJTheme.setup(Home.class.getResourceAsStream(
-                "/com/isuru20/assets/theme.json"));
+//        IntelliJTheme.setup(Home.class.getResourceAsStream(
+//                "/com/isuru20/assets/theme.json"));
+
+        FlatMacDarkLaf.setup();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
