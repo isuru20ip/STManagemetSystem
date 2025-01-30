@@ -16,17 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class TeacherProfile extends javax.swing.JDialog {
 
-    private String teacher;
-
-    public TeacherProfile(java.awt.Frame parent, boolean modal, String nic) {
-        super(parent, modal);
-        initComponents();
-        teacher = nic;
-        loadCity();
-        loadState();
-        findTeacher();
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -193,7 +182,7 @@ public class TeacherProfile extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        updateStudent();
+        updateTeacher();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,32 +204,54 @@ public class TeacherProfile extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> status;
     // End of variables declaration//GEN-END:variables
 
-    HashMap<String, String> cityMap = new HashMap<>();
-    HashMap<String, String> stetusMap = new HashMap<>();
-    private String addresss;
+    // constructor
+    public TeacherProfile(java.awt.Frame parent, boolean modal, String nic) {
+        super(parent, modal);
+        initComponents();
+        teacher = nic;
+        loadCity();
+        loadState();
+        findTeacher();
+    }
 
-    private void updateStudent() {
-        String name = sname.getText();
+    private final String teacher; // teacher NIC
+    HashMap<String, String> cityMap = new HashMap<>(); // store city id <k: city name, V: cityId>
+    HashMap<String, String> stetusMap = new HashMap<>(); // store Status <k: status name, V: statusId>
+    private String addresss; // store address ID
+
+    // update teacher status & address
+    private void updateTeacher() {
         String status = String.valueOf(this.status.getSelectedItem());
         String line1 = line01.getText();
         String line2 = line02.getText();
         String city = String.valueOf(this.city.getSelectedItem());
 
         if (line1.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Address Line 1 is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Address Line 1 is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // Address line 2 validation
         else if (line1.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Address Line 2 is required", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Address Line 2 is required",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
         } // City validation
         else if (city.equals("Select City")) {
-            JOptionPane.showMessageDialog(this, "Please select a city", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Please select a city", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                DB.IUD("UPDATE `address` SET `line01`='" + line1 + "', `line02`='" + line2 + "', `city_id`='" + cityMap.get(city) + "' WHERE `id`='" + addresss + "';");
-                DB.IUD("UPDATE `teacher` SET `teacher_status_id`='" + stetusMap.get(status) + "' WHERE `nic`='" + teacher + "';");
-                JOptionPane.showMessageDialog(this, "Teacher Updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+                DB.IUD("UPDATE `address` SET `line01`='" + line1 + "', "
+                        + "`line02`='" + line2 + "', "
+                        + "`city_id`='" + cityMap.get(city) + "' WHERE `id`='" + addresss + "';");
+                DB.IUD("UPDATE `teacher` SET "
+                        + "`teacher_status_id`='" + stetusMap.get(status) + "'"
+                        + " WHERE `nic`='" + teacher + "';");
+                JOptionPane.showMessageDialog(this, "Teacher Updated",
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (ClassNotFoundException | SQLException | IOException ex) {
-                LogWritter.logger.log(Level.WARNING, "Teacher Update Status Loading", ex);
+                LogWritter.logger.log(Level.WARNING, "Teacher Profile Update", ex);
             }
         }
 
@@ -252,7 +263,7 @@ public class TeacherProfile extends javax.swing.JDialog {
         try {
             cityMap = ItemLoader.getItemLoader().loadComboPlus(city, qurty, value);
         } catch (ClassNotFoundException | SQLException | IOException ex) {
-            LogWritter.logger.log(Level.WARNING, "Student Profile City Loading", ex);
+            LogWritter.logger.log(Level.WARNING, "Teacher Profile City Loading", ex);
         }
     }
 
@@ -265,8 +276,8 @@ public class TeacherProfile extends javax.swing.JDialog {
         }
     }
 
+    // validate and search and fill fields with Teacher data 
     private void findTeacher() {
-
         try {
             ResultSet rs = DB.search("SELECT CONCAT(`fname`,'',`lname`), `teacher_status`.`name`,"
                     + " `address`.`id`, `address`.`line01`,`address`.`line02`,"
@@ -275,7 +286,6 @@ public class TeacherProfile extends javax.swing.JDialog {
                     + "INNER JOIN `address` ON  `address`.`id` = `teacher`.`address_id` "
                     + "INNER JOIN `city` ON `city`.`id` = `address`.`city_id` "
                     + "WHERE `teacher`.`nic` = '" + teacher + "'");
-
             if (rs.next()) {
                 nic.setText(teacher);
                 sname.setText(rs.getString(1));
@@ -285,7 +295,6 @@ public class TeacherProfile extends javax.swing.JDialog {
                 line02.setText(rs.getString(5));
                 city.setSelectedItem(rs.getString(6));
             }
-
         } catch (ClassNotFoundException | SQLException | IOException ex) {
             LogWritter.logger.log(Level.WARNING, "Teacher Prifile findStudent", ex);
         }

@@ -48,7 +48,6 @@ public class ItemLoader {
     }
 
     public void loadCombo(JComboBox combo, String query, String[] manualValues) throws ClassNotFoundException, SQLException, IOException {
-
         ResultSet rs = DB.search(query);
         Vector<String> v = new Vector<>();
         for (String value : manualValues) {

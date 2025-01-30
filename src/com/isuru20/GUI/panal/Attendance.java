@@ -13,15 +13,9 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Attendance extends javax.swing.JPanel {
-
-    public Attendance() {
-        initComponents();
-        loadStudent("");
-        loadTeacher("");
-        dateSetter();
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -441,16 +435,12 @@ public class Attendance extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         btnColorSetup(jButton1);
-        main.removeAll();
-        main.add(Student);
-        SwingUtilities.updateComponentTreeUI(main);
+        panalLoader(Student);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         btnColorSetup(jButton2);
-        main.removeAll();
-        main.add(Teacher);
-        SwingUtilities.updateComponentTreeUI(main);
+        panalLoader(Teacher);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void stNICKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stNICKeyReleased
@@ -536,6 +526,15 @@ public class Attendance extends javax.swing.JPanel {
     private javax.swing.JTextField tname;
     // End of variables declaration//GEN-END:variables
 
+    // constructor
+    public Attendance() {
+        initComponents();
+        loadStudent("");
+        loadTeacher("");
+        dateSetter();
+    }
+
+    // colorup click button
     private void btnColorSetup(JButton btn) {
         jButton1.setBackground(new Color(255, 204, 153));
         jButton2.setBackground(new Color(255, 204, 153));
@@ -543,6 +542,7 @@ public class Attendance extends javax.swing.JPanel {
         SwingUtilities.updateComponentTreeUI(btnPanal);
     }
 
+    // load student data into table
     private void loadStudent(String query) {
         try {
             String q = "SELECT `student_nic`,`marked_time`,`date` FROM `student_attendance` "
@@ -555,12 +555,13 @@ public class Attendance extends javax.swing.JPanel {
         }
     }
 
+    // find student from NIC for making attendance
     private void findStudent() {
         String nic = stNIC.getText();
-
         if (nic.length() == 10 || nic.length() == 12) {
             try {
-                ResultSet rs = DB.search("SELECT CONCAT(`fname`,' ',`lname`) AS `name` FROM `student` WHERE `nic` = '" + nic + "'");
+                ResultSet rs = DB.search("SELECT CONCAT(`fname`,' ',`lname`)"
+                        + " AS `name` FROM `student` WHERE `nic` = '" + nic + "'");
                 if (rs.next()) {
                     name.setText(rs.getString(1));
                 }
@@ -571,27 +572,34 @@ public class Attendance extends javax.swing.JPanel {
         }
     }
 
+    // load current date into student and teacher panels 
     private void dateSetter() {
         date.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         tdate.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
     }
 
+    // make Student Attendance 
     private void markStAttend() {
         try {
             String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-            ResultSet scShedule = DB.search("SELECT `id`,`shedule_status_id` FROM `school_shedule` WHERE `date` = '" + today + "'");
+            ResultSet scShedule = DB.search("SELECT `id`,`shedule_status_id`"
+                    + " FROM `school_shedule` WHERE `date` = '" + today + "'");
             if (scShedule.next()) {
                 if ("1".equals(scShedule.getString(2))) {
 
                     if (name.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "Please Enter Your NIC", "Warning", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this,
+                                "Please Enter Your NIC",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
                     } else {
-
-                        boolean ismarked = DB.search("SELECT `student_nic` FROM `student_attendance` WHERE `student_nic` = '" + stNIC.getText() + "' AND `school_shedule_id` = '" + scShedule.getString(1) + "' ").next();
-
+                        boolean ismarked = DB.search("SELECT `student_nic` FROM `student_attendance` "
+                                + "WHERE `student_nic` = '" + stNIC.getText() + "' "
+                                + "AND `school_shedule_id` = '" + scShedule.getString(1) + "' ").next();
                         if (ismarked) {
-                            JOptionPane.showMessageDialog(this, "The Student Alredy Marked The Attendance", "Warning", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this,
+                                    "The Student Alredy Marked The Attendance",
+                                    "Warning", JOptionPane.WARNING_MESSAGE);
                         } else {
                             String time = new SimpleDateFormat("hh:mm:ss").format(new Date());
                             DB.IUD("INSERT INTO `student_attendance` (`marked_time`, `student_nic`, `school_shedule_id`)"
@@ -600,10 +608,14 @@ public class Attendance extends javax.swing.JPanel {
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Can not mark Shedule is holiday", "Holiday Shedule", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "Can not mark Shedule is holiday",
+                            "Holiday Shedule", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Shedule Not Found", "Missing Shedule", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Shedule Not Found", "Missing Shedule",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (ClassNotFoundException | SQLException | IOException ex) {
             LogWritter.logger.log(Level.WARNING, "Attendance Panal Student Search", ex);
@@ -611,6 +623,7 @@ public class Attendance extends javax.swing.JPanel {
         }
     }
 
+    // clean all panels
     private void cleanAll() {
         this.stNIC.setText("");
         this.name.setText("");
@@ -625,57 +638,62 @@ public class Attendance extends javax.swing.JPanel {
         loadTeacher("");
     }
 
+    //  sortout and load student into table
     private void shortStudent() {
         String nic = jTextField1.getText();
         String date = null;
         if (jDateChooser1.getDate() != null) {
             date = new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate());
         }
-
         String q = "";
-
         if (!nic.isEmpty() && date == null) {
             q = "WHERE `student_attendance`.`student_nic` LIKE '%" + nic + "%'";
         } else if (nic.isEmpty() && date != null) {
             q = "WHERE `school_shedule`.`date` = '" + date + "' ";
         } else if (!nic.isEmpty() && date != null) {
-            q = "WHERE `student_attendance`.`student_nic` LIKE '%" + nic + "%' AND `school_shedule`.`date` = '" + date + "' ";
+            q = "WHERE `student_attendance`.`student_nic` LIKE '%" + nic + "%' "
+                    + "AND `school_shedule`.`date` = '" + date + "' ";
         }
         loadStudent(q);
     }
 
+    // seach teacher from NIC for marking attendance
     private void findTeacher() {
         String nic = teNIC.getText();
         System.out.println(nic);
         if (nic.length() == 10 || nic.length() == 12) {
             try {
-                ResultSet rs = DB.search("SELECT CONCAT(`fname`,' ',`lname`) AS `name` FROM `teacher` WHERE `nic` = '" + nic + "'");
+                ResultSet rs = DB.search("SELECT CONCAT(`fname`,' ',`lname`) AS "
+                        + "`name` FROM `teacher` WHERE `nic` = '" + nic + "'");
                 if (rs.next()) {
                     tname.setText(rs.getString(1));
                 }
             } catch (ClassNotFoundException | SQLException | IOException ex) {
-                LogWritter.logger.log(Level.WARNING, "Attendance Panal Student Search", ex);
+                LogWritter.logger.log(Level.WARNING, "Attendance Panal Teacher Search", ex);
             }
         }
     }
 
+    // mark teacher attendance 
     private void teacherAttend() {
-
         try {
             String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-            ResultSet scShedule = DB.search("SELECT `id`,`shedule_status_id` FROM `school_shedule` WHERE `date` = '" + today + "'");
+            ResultSet scShedule = DB.search("SELECT `id`,`shedule_status_id` "
+                    + "FROM `school_shedule` WHERE `date` = '" + today + "'");
             if (scShedule.next()) {
                 if ("1".equals(scShedule.getString(2))) {
-
                     if (teNIC.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "Please Enter Your NIC", "Warning", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this,
+                                "Please Enter Your NIC", "Warning",
+                                JOptionPane.WARNING_MESSAGE);
                     } else {
-
-                        boolean ismarked = DB.search("SELECT `teacher_nic` FROM `teacher_attendance` WHERE `teacher_nic` = '" + teNIC.getText() + "' AND `school_shedule_id` = '" + scShedule.getString(1) + "' ").next();
-
+                        boolean ismarked = DB.search("SELECT `teacher_nic` "
+                                + "FROM `teacher_attendance` WHERE `teacher_nic` = '" + teNIC.getText() + "' "
+                                + "AND `school_shedule_id` = '" + scShedule.getString(1) + "' ").next();
                         if (ismarked) {
-                            JOptionPane.showMessageDialog(this, "The Teacher Alredy Marked The Attendance", "Warning", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this,
+                                    "The Teacher Alredy Marked The Attendance",
+                                    "Warning", JOptionPane.WARNING_MESSAGE);
                         } else {
                             String time = new SimpleDateFormat("hh:mm:ss").format(new Date());
                             DB.IUD("INSERT INTO `teacher_attendance` (`marked_time`, `teacher_nic`, `school_shedule_id`)"
@@ -684,18 +702,23 @@ public class Attendance extends javax.swing.JPanel {
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Can not mark Shedule is holiday", "Holiday Shedule", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "Can not mark Shedule is holiday", "Ho"
+                            + "liday Shedule", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Shedule Not Found", "Missing Shedule", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Shedule Not Found", "Missing Shedule",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (ClassNotFoundException | SQLException | IOException ex) {
-            LogWritter.logger.log(Level.WARNING, "Attendance Panal Student Search", ex);
+            LogWritter.logger.log(Level.WARNING, "Attendance Panal Teacher Search", ex);
 
         }
 
     }
 
+    // load teacher data into Table
     private void loadTeacher(String query) {
         try {
             String q = "SELECT `teacher_nic`,`marked_time`,`date` FROM `teacher_attendance` "
@@ -703,20 +726,19 @@ public class Attendance extends javax.swing.JPanel {
             String[] colums = {"teacher_nic", "marked_time", "date"};
             ItemLoader.getItemLoader().loadTable(teTable, q, colums);
         } catch (IOException | ClassNotFoundException | SQLException ex) {
-            LogWritter.logger.log(Level.WARNING, "Attendance Panal Student Loading", ex);
+            LogWritter.logger.log(Level.WARNING, "Attendance Panal Teacher Loading", ex);
 
         }
     }
 
+    // shortout and load teacher date into jTable
     private void sortTecher() {
         String nic = jTextField6.getText();
         String date = null;
         if (jDateChooser2.getDate() != null) {
             date = new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser2.getDate());
         }
-
         String q = "";
-
         if (!nic.isEmpty() && date == null) {
             q = "WHERE `teacher_attendance`.`teacher_nic` LIKE '%" + nic + "%'";
         } else if (nic.isEmpty() && date != null) {
@@ -725,5 +747,12 @@ public class Attendance extends javax.swing.JPanel {
             q = "WHERE `teacher_attendance`.`teacher_nic` LIKE '%" + nic + "%' AND `school_shedule`.`date` = '" + date + "' ";
         }
         loadTeacher(q);
+    }
+
+    // load Teacher and Stedent panal onlick
+    private void panalLoader(JPanel panel) {
+        main.removeAll();
+        main.add(panel);
+        SwingUtilities.updateComponentTreeUI(main);
     }
 }

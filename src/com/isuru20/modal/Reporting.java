@@ -1,6 +1,5 @@
 package com.isuru20.modal;
 
-import java.net.URL;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;

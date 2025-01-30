@@ -119,20 +119,37 @@ public class SignIn extends javax.swing.JFrame {
         Signin();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    // main method
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         IntelliJTheme.setup(Home.class.getResourceAsStream(
                 "/com/isuru20/assets/theme.json"));
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SignIn().setVisible(true);
             }
         });
+    }
+
+    // validate admin data and provide access to the system 
+    private void Signin() {
+        try {
+            String admin = this.userName.getText();
+            String pass = this.password.getText();
+            boolean isAdmin = DB.search("SELECT * FROM `admin` "
+                    + "WHERE `admin`.`userName` = '" + admin + "' "
+                    + "AND `admin`.`password` = '" + pass + "'").next();
+            if (isAdmin) {
+                new Home().setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Admin Not Found", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (ClassNotFoundException | SQLException | IOException ex) {
+            LogWritter.logger.log(Level.WARNING, "SignIn Panal SignIn  Process", ex);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -146,25 +163,5 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JTextField password;
     private javax.swing.JTextField userName;
     // End of variables declaration//GEN-END:variables
-
-    private void Signin() {
-        try {
-            String admin = this.userName.getText();
-            String pass = this.password.getText();
-
-            boolean isAdmin = DB.search("SELECT * FROM `admin` WHERE `admin`.`userName` = '" + admin + "' AND `admin`.`password` = '" + pass + "'").next();
-
-            if (isAdmin) {
-                new Home().setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Admin Not Found", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (ClassNotFoundException | SQLException | IOException ex) {
-            LogWritter.logger.log(Level.WARNING, "Student Panal City Loading", ex);
-        }
-
-    }
 
 }

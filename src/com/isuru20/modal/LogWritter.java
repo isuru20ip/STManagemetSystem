@@ -1,14 +1,11 @@
 package com.isuru20.modal;
 
+import java.io.IOException;
 import java.util.logging.*;
 
-/**
- *
- * @author isuru priyamntha
- */
 public class LogWritter {
 
-    public static Logger logger = Logger.getLogger("tuition-manager");
+    public static final Logger logger = Logger.getLogger("tuition-manager");
 
     static {
         try {
@@ -16,8 +13,8 @@ public class LogWritter {
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
 
-        } catch (Exception e) {
-            logger.log(Level.WARNING, "Erorr", e);
+        } catch (IOException | SecurityException ex) {
+            LogWritter.logger.log(Level.WARNING, "Student Profile City Loading", ex);
         }
     }
 }

@@ -16,12 +16,6 @@ import javax.swing.SwingUtilities;
 
 public class Home extends javax.swing.JFrame {
 
-    public Home() {
-        initComponents();
-        frameSetup();
-        panalSetup();
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -193,13 +187,6 @@ public class Home extends javax.swing.JFrame {
         logOut();
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void frameSetup() {
-        this.setTitle("VT School System");
-        //this.setSize(900, 600); // Initial size
-        this.setBackground(Color.BLACK);
-        this.setExtendedState(MAXIMIZED_BOTH);
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/com/isuru20/assets/top_icon.png")));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton attendance;
@@ -214,10 +201,28 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton teacher;
     // End of variables declaration//GEN-END:variables
 
+    // constructor
+    public Home() {
+        initComponents();
+        frameSetup();
+        panalSetup();
+    }
+
+    // hold the current loaded panal
     private JPanel current;
 
-    private void loadPanel(JPanel panel) {
+    // set the jFrame elements At the loading
+    private void frameSetup() {
+        this.setTitle("VT School System");
+        //this.setSize(900, 600); // Initial size
+        this.setBackground(Color.BLACK);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setIconImage(Toolkit.getDefaultToolkit()
+                .getImage(this.getClass().getResource("/com/isuru20/assets/top_icon.png")));
+    }
 
+    // load the  panal into screen 
+    private void loadPanel(JPanel panel) {
         if (!current.getClass().equals(panel.getClass())) {
             main.removeAll();
             main.add(panel, BorderLayout.CENTER);
@@ -228,13 +233,14 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
+    // set defalut panal at the startup
     private void panalSetup() {
         current = new Student(this);
         main.add(current, BorderLayout.CENTER);
     }
 
+    // Color up the buttons 
     private void buttonColorSetup(JButton btn) {
-
         student.setBackground(new Color(255, 204, 102));
         teacher.setBackground(new Color(255, 204, 102));
         payment.setBackground(new Color(255, 204, 102));
@@ -246,6 +252,7 @@ public class Home extends javax.swing.JFrame {
         btn.setBackground(new Color(255, 102, 0));
     }
 
+    // system logout action
     private void logOut() {
         this.main.removeAll();
         this.dispose();

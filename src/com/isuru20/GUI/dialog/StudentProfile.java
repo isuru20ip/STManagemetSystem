@@ -16,17 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class StudentProfile extends javax.swing.JDialog {
 
-    private String student;
-
-    public StudentProfile(java.awt.Frame parent, boolean modal, String nic) {
-        super(parent, modal);
-        initComponents();
-        student = nic;
-        loadCity();
-        loadState();
-        findStudent(nic);
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -215,12 +204,23 @@ public class StudentProfile extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> status;
     // End of variables declaration//GEN-END:variables
 
-    HashMap<String, String> cityMap = new HashMap<>();
-    HashMap<String, String> stetusMap = new HashMap<>();
-    private String addresss;
+    // constructor
+    public StudentProfile(java.awt.Frame parent, boolean modal, String nic) {
+        super(parent, modal);
+        initComponents();
+        student = nic;
+        loadCity();
+        loadState();
+        findStudent(nic);
+    }
 
+    private final String student; // store Student NIC
+    HashMap<String, String> cityMap = new HashMap<>(); // store city id <k: city name, V: cityId>
+    HashMap<String, String> stetusMap = new HashMap<>(); // store Status <k: status name, V: statusId>
+    private String addresss; // store address ID
+
+    // update student status & address
     private void updateStudent() {
-        String name = sname.getText();
         String status = String.valueOf(this.status.getSelectedItem());
         String line1 = line01.getText();
         String line2 = line02.getText();
@@ -239,11 +239,11 @@ public class StudentProfile extends javax.swing.JDialog {
                 DB.IUD("UPDATE `address` SET `line01`='" + line1 + "', `line02`='" + line2 + "', `city_id`='" + cityMap.get(city) + "' WHERE `id`='" + addresss + "';");
                 DB.IUD("UPDATE `student` SET `student_status_id`='" + stetusMap.get(status) + "' WHERE `nic`='" + this.student + "';");
                 JOptionPane.showMessageDialog(this, "Student Updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
             } catch (ClassNotFoundException | SQLException | IOException ex) {
-                LogWritter.logger.log(Level.WARNING, "Student Update Status Loading", ex);
+                LogWritter.logger.log(Level.WARNING, "Student Profile Update data", ex);
             }
         }
-
     }
 
     private void loadCity() {
@@ -265,8 +265,8 @@ public class StudentProfile extends javax.swing.JDialog {
         }
     }
 
+    // validate and search and fill fields with student data 
     private void findStudent(String student) {
-        
         if (student.length() == 12 || student.length() == 10) {
             try {
                 ResultSet rs = DB.search("SELECT CONCAT(`fname`,'',`lname`), `student_status`.`name`,"
@@ -276,7 +276,6 @@ public class StudentProfile extends javax.swing.JDialog {
                         + "INNER JOIN `address` ON  `address`.`id` = `student`.`address_id` "
                         + "INNER JOIN `city` ON `city`.`id` = `address`.`city_id` "
                         + "WHERE `student`.`nic` = '" + student + "'");
-
                 if (rs.next()) {
                     nic.setText(student);
                     sname.setText(rs.getString(1));
@@ -286,7 +285,6 @@ public class StudentProfile extends javax.swing.JDialog {
                     line02.setText(rs.getString(5));
                     city.setSelectedItem(rs.getString(6));
                 }
-
             } catch (ClassNotFoundException | SQLException | IOException ex) {
                 LogWritter.logger.log(Level.WARNING, "Student Prifile findStudent", ex);
             }
