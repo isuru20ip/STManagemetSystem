@@ -936,6 +936,7 @@ public class Student extends javax.swing.JPanel {
                         + "'" + sdf.format(dob) + "', '" + phone + "', '" + sdf.format(new Date()) + "', '" + rs.getString(1) + "', '" + badge + "', 1);");
                 JOptionPane.showMessageDialog(this, "Student registration successful.", "success", JOptionPane.INFORMATION_MESSAGE);
                 clearAll();
+                loadStudents("");
             } catch (ClassNotFoundException | SQLException | IOException ex) {
                 Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
             }

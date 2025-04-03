@@ -36,3 +36,6 @@ nbproject/private/private.xml
 
 # Logs and temporary files
 *.log
+/test/nbproject/private/
+/Serialization/nbproject/private/
+/PlaySound/nbproject/private/
